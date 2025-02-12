@@ -15,5 +15,10 @@
 		"typescript": "^5.5.2",
 		"vitest": "~2.1.9",
 		"wrangler": "^3.107.3"
+	},
+	"dependencies": {
+		"@neondatabase/serverless": "^0.10.4",
+		"@sanity/client": "^6.28.0",
+		"hono": "^4.7.0"
 	}
 }
