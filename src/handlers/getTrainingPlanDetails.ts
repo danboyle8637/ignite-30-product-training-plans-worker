@@ -20,6 +20,8 @@ export async function getTrainingPlanDetails(ctx: Context): Promise<Response> {
 		return response;
 	}
 
+	console.log("AUTHORIZATION: ", authorization);
+
 	const userId = parseUserAuthorization(authorization);
 
 	if (!userId) {
@@ -43,6 +45,8 @@ export async function getTrainingPlanDetails(ctx: Context): Promise<Response> {
 			status: 500,
 			message: message,
 		};
+
+		console.log(errorLog);
 
 		if (env.ENVIRONMENT === "staging") {
 			ctx.executionCtx.waitUntil(env.FWW_LIVE_STAGING_QUEUE.send(JSON.stringify(errorLog)));

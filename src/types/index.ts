@@ -1,12 +1,4 @@
-export type ProgramId =
-	| "body_burn_reset"
-	| "ignite_reset"
-	| "strong_reset"
-	| "summer_shred"
-	| "strong_start"
-	| "ignite_30_beginner"
-	| "ignite_30_advanced"
-	| "foundation_14";
+export type ProgramId = "ignite_30_beginner" | "ignite_30_advanced";
 
 export type ProgramTag =
 	| "trial"
