@@ -19,6 +19,8 @@ import { getCompletedAndCancelledTrainingPlans } from "./handlers/getCompletedAn
 import { completeTrainingPlan } from "./handlers/completeTrainingPlan";
 import { badRequest } from "./handlers/badRequest";
 
+import { testHandler } from "./handlers/test";
+
 // *** Helpers *** //
 import { corsConfig } from "./helpers/honoConfig";
 
@@ -30,6 +32,8 @@ const trainingPlan = new Hono<{ Bindings: Env }>();
 const admin = new Hono<{ Bindings: Env }>();
 
 app.use("/*", corsConfig);
+
+trainingPlan.all("/test", testHandler);
 
 trainingPlan.get("/get-training-plan-details/:program_id", getTrainingPlanDetails);
 
