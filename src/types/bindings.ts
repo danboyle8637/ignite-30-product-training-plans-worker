@@ -1,5 +1,5 @@
 export type Env = {
-	ENVIRONMENT: 'dev' | 'staging' | 'production';
+	ENVIRONMENT: "dev" | "staging" | "production";
 	NEON_STAGING_USER: string;
 	NEON_STAGING_PASSWORD: string;
 	NEON_STAGING_HOST: string;
@@ -11,7 +11,6 @@ export type Env = {
 	SANITY_PROJECT_ID: string;
 	SANITY_DATASET: string;
 	SANITY_TOKEN: string;
-	FWW_LIVE_TRAINING_PLANS: KVNamespace;
 	KINDAL_EMAIL: string;
 	ADMIN_ENDPOINT_PASSWORD: string;
 	TODOIST_TOKEN: string;
