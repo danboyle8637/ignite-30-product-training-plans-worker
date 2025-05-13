@@ -1,4 +1,4 @@
-import type { ProgramId, Membership } from './index';
+import type { ProgramId, Membership } from "./index";
 
 export interface StartTrainingPlanReqBody {
 	startDate: string;
@@ -26,4 +26,10 @@ export interface HandleMissedDaysReqBody {
 export interface CancelTrainingPlanReqBody {
 	membership: Membership;
 	shouldCancelMembership: boolean;
+}
+
+export interface UpdateTrainingPlanStatsStreaksReqBody {
+	primaryGoalStreak: number;
+	completeDayStreak: number;
+	fitQuickieStreak: number;
 }

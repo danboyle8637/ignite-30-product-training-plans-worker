@@ -496,6 +496,28 @@ export class Queries {
 		return sql.transaction(activeQueryArray, { isolationLevel: "RepeatableRead" });
 	}
 
+	updateTrainingPlanStatsStreaksQuery(
+		sql: NeonQueryFunction<any, any>,
+		userId: string,
+		programId: ProgramId,
+		statsRecordId: number,
+		primaryGoalStreak: number,
+		completeDayStreak: number,
+		fitQuickieStreak: number
+	) {
+		return sql`
+			UPDATE training_plans.training_plan_stats
+				SET primary_goal_streak = ${primaryGoalStreak},
+						complete_day_streak = ${completeDayStreak},
+						fit_quickie_streak = ${fitQuickieStreak},
+						days_missed_streak = 0
+			WHERE user_id = ${userId}
+				AND status = 'active'
+				AND program_id = ${programId}
+				AND id = ${statsRecordId};
+		`;
+	}
+
 	createTestDataQuery(sql: NeonQueryFunction<any, any>) {
 		const day0 = sql`
 		INSERT INTO training_plans.training_plan_day_stats (

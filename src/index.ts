@@ -17,6 +17,7 @@ import { getTrainingPlanLeaderboardsData } from "./handlers/getTrainingPlanLeade
 import { getTrainingPlanStartDate } from "./handlers/getTrainingPlanStartDate";
 import { getCompletedAndCancelledTrainingPlans } from "./handlers/getCompletedAndCancelledTrainingPlans";
 import { completeTrainingPlan } from "./handlers/completeTrainingPlan";
+import { updateTrainingPlanStatsStreaks } from "./handlers/updateTrainingPlanStatsStreaks";
 import { badRequest } from "./handlers/badRequest";
 
 import { testHandler } from "./handlers/test";
@@ -72,6 +73,8 @@ trainingPlan.patch(
 	"/update-training-plan-missed-day-streak/:program_id/:stats_record_id/:number_of_missed_days",
 	updateTrainingPlanMissedDaysStreak
 );
+
+trainingPlan.patch("/update-training-plan-stats-streaks/:program_id/:stats_record_id", updateTrainingPlanStatsStreaks);
 
 app.notFound(badRequest);
 

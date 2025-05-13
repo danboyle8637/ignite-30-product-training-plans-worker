@@ -81,6 +81,25 @@ export class TrainingPlans extends Queries {
 		);
 	}
 
+	async updateTrainingPlanStatsStreaks(
+		userId: string,
+		programId: ProgramId,
+		statsRecordId: number,
+		primaryGoalStreak: number,
+		completeDayStreak: number,
+		fitQuickieStreak: number
+	) {
+		return super.updateTrainingPlanStatsStreaksQuery(
+			this.sql,
+			userId,
+			programId,
+			statsRecordId,
+			primaryGoalStreak,
+			completeDayStreak,
+			fitQuickieStreak
+		);
+	}
+
 	async updateTrainingPlanDayStatsAfterMissedDays(
 		userId: string,
 		programId: ProgramId,
