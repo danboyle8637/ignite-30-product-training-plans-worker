@@ -2,7 +2,7 @@ import { Hono } from "hono";
 
 // *** Handlers *** //
 import { createTrainingPlanStatsRecord } from "./handlers/createTrainingPlanStatsRecord";
-import { toggleDayChallenge } from "./handlers/toggleDayChallenge";
+import { toggleDayGoal } from "./handlers/toggleDayGoal";
 import { getTrainingPlanStats } from "./handlers/getTrainingPlanStats";
 import { getTrainingnPlanDayStats } from "./handlers/getTrainingPlanDayStats";
 import { getLastDayCompleted } from "./handlers/getLastDayCompleted";
@@ -50,7 +50,7 @@ trainingPlan.get("/get-training-plan-completed-days-array/:program_id/:stats_rec
 
 trainingPlan.post("/create-training-plan-stats-record/:program_id", createTrainingPlanStatsRecord);
 
-trainingPlan.patch("/toggle-daily-goal/:goal_type/:program_id", toggleDayChallenge);
+trainingPlan.patch("/toggle-daily-goal/:goal_type/:program_id", toggleDayGoal);
 
 trainingPlan.get("/get-completed-and-cancelled-training-plans", getCompletedAndCancelledTrainingPlans);
 

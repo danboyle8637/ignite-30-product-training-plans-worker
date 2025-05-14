@@ -9,7 +9,7 @@ import type { ToggleDayChallengeReqBody } from "../types/requests";
 import type { ErrorLog } from "../types/responses";
 import type { Env } from "../types/bindings";
 
-export async function toggleDayChallenge(ctx: Context): Promise<Response> {
+export async function toggleDayGoal(ctx: Context): Promise<Response> {
 	const req = ctx.req.raw;
 	const headers = req.headers;
 	const contentType = headers.get("Content-Type");
@@ -51,6 +51,8 @@ export async function toggleDayChallenge(ctx: Context): Promise<Response> {
 			currentDaysMissed: currentDaysMissed,
 		};
 
+		console.log("GOAL DATA: ", toggleData);
+
 		await trainingPlans.toggleDayChallenge(toggleData);
 
 		const response = new Response("Record updated", { status: 200 });
@@ -65,6 +67,8 @@ export async function toggleDayChallenge(ctx: Context): Promise<Response> {
 			message: message,
 			goalType: paramGoalType,
 		};
+
+		console.log("ERROR LOG: ", errorLog);
 
 		if (env.ENVIRONMENT === "staging") {
 			ctx.executionCtx.waitUntil(env.FWW_LIVE_STAGING_QUEUE.send(JSON.stringify(errorLog)));

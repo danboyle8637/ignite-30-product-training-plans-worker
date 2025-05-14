@@ -14,10 +14,7 @@ export function getErrorMessage(error: unknown) {
 }
 
 export function parseUserAuthorization(authData: string): string | undefined {
-	console.log("AUTH DATA: ", authData);
 	const token = authData.split(" ")[1];
-
-	console.log("TOKEN: ", token);
 
 	if (!token) {
 		return undefined;
@@ -25,7 +22,6 @@ export function parseUserAuthorization(authData: string): string | undefined {
 
 	const decodedUserId = atob(token);
 	const userId = decodedUserId.substring(0, decodedUserId.length - 1);
-	console.log("USERID: ", userId);
 	return userId;
 }
 
