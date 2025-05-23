@@ -204,7 +204,8 @@ export type HandleFunction =
 	| "getTrainingPlanStartDate"
 	| "getCompletedTrainingPlans"
 	| "completeTrainingPlan"
-	| "updateTrainingPlanMissedDaysStreak";
+	| "updateTrainingPlanMissedDaysStreak"
+	| "getTrainingPlanReportCardData";
 
 export interface TrainingPlanCardData {
 	id: number;

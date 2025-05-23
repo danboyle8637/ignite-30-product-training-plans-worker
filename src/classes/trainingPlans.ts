@@ -223,13 +223,8 @@ export class TrainingPlans extends Queries {
 		return reportCardData;
 	}
 
-	async getTrainingPlanLeaderboardData(programId: ProgramId, status: TrainingPlanStatus, startDate?: string) {
-		const queryResult: TrainingPlanLeaderboardQueryRow[] = await super.getTrainingPlanLeaderBoardDataQuery(
-			this.sql,
-			programId,
-			status,
-			startDate
-		);
+	async getTrainingPlanLeaderboardData(programId: ProgramId, status: TrainingPlanStatus) {
+		const queryResult: TrainingPlanLeaderboardQueryRow[] = await super.getTrainingPlanLeaderBoardDataQuery(this.sql, programId, status);
 		return queryResult;
 	}
 

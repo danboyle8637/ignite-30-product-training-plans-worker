@@ -14,7 +14,6 @@ export async function getTrainingPlanLeaderboardsData(ctx: Context): Promise<Res
 	const authorization = headers.get("Authorization") || "";
 	const paramsProgramId = ctx.req.param("program_id") as ProgramId;
 	const paramsStatus = ctx.req.param("status") as TrainingPlanStatus;
-	const paramsStartDate = ctx.req.param("start_date");
 	const env: Env = ctx.env;
 
 	if (contentType !== JSON_CONTENT_TYPE || !paramsProgramId || !paramsStatus) {
@@ -32,7 +31,7 @@ export async function getTrainingPlanLeaderboardsData(ctx: Context): Promise<Res
 	const trainingPlan = new TrainingPlans(env);
 
 	try {
-		const leaderboards = await trainingPlan.getTrainingPlanLeaderboardData(paramsProgramId, paramsStatus, paramsStartDate);
+		const leaderboards = await trainingPlan.getTrainingPlanLeaderboardData(paramsProgramId, paramsStatus);
 
 		const formattedLeaderboards: TrainingPlanLeaderboardRow[] = leaderboards.map((l) => ({
 			username: l.username,
@@ -51,7 +50,7 @@ export async function getTrainingPlanLeaderboardsData(ctx: Context): Promise<Res
 		const message = getErrorMessage(error);
 		const errorLog: ErrorLog = {
 			worker: "training_plan",
-			endpoint: `/get-training-plan-leaderboards/${paramsProgramId}/${paramsStartDate}`,
+			endpoint: `/get-training-plan-leaderboards/${paramsProgramId}`,
 			function: "getTrainingPlanLeaderboardsData",
 			status: 500,
 			message: message,

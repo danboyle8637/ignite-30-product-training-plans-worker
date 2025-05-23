@@ -360,15 +360,8 @@ export class Queries {
 	getTrainingPlanLeaderBoardDataQuery(
 		sql: NeonQueryFunction<any, any>,
 		programId: ProgramId,
-		status: TrainingPlanStatus,
-		startDate?: string
+		status: TrainingPlanStatus
 	): NeonQueryPromise<any, any> {
-		if (startDate) {
-			return sql`
-				SELECT * FROM training_plans.get_training_plan_leaderboards(${programId}, ${status}, ${startDate});
-			`;
-		}
-
 		return sql`
 			SELECT * FROM training_plans.get_training_plan_leaderboards(${programId}, ${status}, NULL);
 		`;

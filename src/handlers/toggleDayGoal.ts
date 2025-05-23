@@ -51,8 +51,6 @@ export async function toggleDayGoal(ctx: Context): Promise<Response> {
 			currentDaysMissed: currentDaysMissed,
 		};
 
-		console.log("GOAL DATA: ", toggleData);
-
 		await trainingPlans.toggleDayChallenge(toggleData);
 
 		const response = new Response("Record updated", { status: 200 });
@@ -67,8 +65,6 @@ export async function toggleDayGoal(ctx: Context): Promise<Response> {
 			message: message,
 			goalType: paramGoalType,
 		};
-
-		console.log("ERROR LOG: ", errorLog);
 
 		if (env.ENVIRONMENT === "staging") {
 			ctx.executionCtx.waitUntil(env.FWW_LIVE_STAGING_QUEUE.send(JSON.stringify(errorLog)));

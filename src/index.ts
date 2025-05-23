@@ -13,6 +13,7 @@ import { getTrainingPlanDetails } from "./handlers/getTrainingPlanDetails";
 import { getTrainingPlanDayGoalsDetails } from "./handlers/getTrainingPlanDayGoalsDetails";
 import { cancelTrainingPlan } from "./handlers/cancelTrainingPlan";
 import { getTrainingPlanReportCard } from "./handlers/getTrainingPlanReportCard";
+import { getTrainingPlanReportCardData } from "./handlers/getTrainingPlanReportCardData";
 import { getTrainingPlanLeaderboardsData } from "./handlers/getTrainingPlanLeaderboardData";
 import { getTrainingPlanStartDate } from "./handlers/getTrainingPlanStartDate";
 import { getCompletedAndCancelledTrainingPlans } from "./handlers/getCompletedAndCancelledTrainingPlans";
@@ -55,6 +56,8 @@ trainingPlan.patch("/toggle-daily-goal/:goal_type/:program_id", toggleDayGoal);
 trainingPlan.get("/get-completed-and-cancelled-training-plans", getCompletedAndCancelledTrainingPlans);
 
 trainingPlan.get("/get-training-plan-user-report-card/:program_id/:stats_record_id/:total_possible_points", getTrainingPlanReportCard);
+
+trainingPlan.get("/get-training-plna-report-card-data/:program_id/:stats_record_id/:max_points", getTrainingPlanReportCardData);
 
 trainingPlan.get("/get-training-plan-leaderboards/:program_id/:status/:start_date?", getTrainingPlanLeaderboardsData);
 

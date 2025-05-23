@@ -1,7 +1,7 @@
-import type { HandleFunction, DailyGoalType, TrainingPlanDayStatsRecord, ProgramId, LeaderboardType, TrainingPlanStatus } from '../types';
+import type { HandleFunction, DailyGoalType, TrainingPlanDayStatsRecord, ProgramId, LeaderboardType, TrainingPlanStatus } from "../types";
 
 export interface ErrorLog {
-	worker: 'training_plan';
+	worker: "training_plan";
 	endpoint: string;
 	function: HandleFunction;
 	status: number;
@@ -101,4 +101,10 @@ export interface GetCompletedTrainingPlanResBody {
 	status: TrainingPlanStatus;
 	startDate: string;
 	endDate: string;
+}
+
+export interface TrainingPlanReportCardDataResBody {
+	reportCardData: ReportCardUserDataResBody;
+	leaderboardData: TrainingPlanLeaderboardResBody;
+	statsData: GetTrainingPlanDayStatsResBody;
 }
