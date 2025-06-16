@@ -65,10 +65,7 @@ trainingPlan.get("/get-training-plan-start-date/:program_id/:stats_record_id", g
 
 trainingPlan.patch("/cancel-training-plan/:program_id/:stats_record_id/:membership", cancelTrainingPlan);
 
-trainingPlan.patch(
-	`/complete-training-plan/:program_id/:stats_record_id/:start_date/:total_days_in_current_month/:membership`,
-	completeTrainingPlan
-);
+trainingPlan.patch(`/complete-training-plan/:program_id/:stats_record_id/:start_date/:total_days_in_current_month`, completeTrainingPlan);
 
 trainingPlan.patch("/handle-missed-days", handleMissedDays);
 

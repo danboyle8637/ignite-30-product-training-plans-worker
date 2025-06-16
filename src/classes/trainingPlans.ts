@@ -250,18 +250,9 @@ export class TrainingPlans extends Queries {
 		programId: ProgramId,
 		startDate: string,
 		trainingPlanStatsRecordId: number,
-		totalDaysInCurrentMonth: number,
-		membership: Membership
+		totalDaysInCurrentMonth: number
 	): Promise<NeonQueryPromise<any, any>> {
-		const trainingPlanData = await this.env.FWW_LIVE_TRAINING_PLANS.get(programId);
-
-		if (!trainingPlanData) {
-			const message = "Could not get the trainign plan from the database (KV). Try again.";
-			throw new Error(message);
-		}
-
-		const trainingPlan: TrainingPlan = JSON.parse(trainingPlanData);
-		const trainingPlanLength = trainingPlan.trainingPlanLength;
+		const trainingPlanLength = 30;
 
 		const queryResult: TrainingPlanDayStatsQueryResult[] = await super.getTrainingPlanDayStatsQuery(
 			this.sql,
@@ -311,15 +302,7 @@ export class TrainingPlans extends Queries {
 			);
 		}
 
-		const shouldCancelMembership =
-			membership === "strong_start" ||
-			membership === "summer_shred" ||
-			membership === "ignite_30_live" ||
-			membership === "ignite_30_live_training_plan" ||
-			membership === "kettlebell_clinic" ||
-			membership === "kettlebell_strong_30";
-
-		return super.completeTrainingPlanQuery(this.sql, userId, programId, trainingPlanStatsRecordId, shouldCancelMembership);
+		return super.completeTrainingPlanQuery(this.sql, userId, programId, trainingPlanStatsRecordId);
 	}
 
 	// *********** ADMINISTRATION METHODS *********** //

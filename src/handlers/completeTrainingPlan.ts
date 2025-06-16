@@ -16,17 +16,9 @@ export async function completeTrainingPlan(ctx: Context): Promise<Response> {
 	const paramsStatsRecordId = ctx.req.param("stats_record_id");
 	const paramsStartDate = ctx.req.param("start_date");
 	const paramsTotalDaysInCurrentMonth = ctx.req.param("total_days_in_current_month");
-	const paramsMembership = ctx.req.param("membership");
 	const env: Env = ctx.env;
 
-	if (
-		contentType !== JSON_CONTENT_TYPE ||
-		!paramsProgramId ||
-		!paramsStatsRecordId ||
-		!paramsStartDate ||
-		!paramsTotalDaysInCurrentMonth ||
-		!paramsMembership
-	) {
+	if (contentType !== JSON_CONTENT_TYPE || !paramsProgramId || !paramsStatsRecordId || !paramsStartDate || !paramsTotalDaysInCurrentMonth) {
 		const response = new Response("Bad Request", { status: 400 });
 		return response;
 	}
@@ -43,9 +35,8 @@ export async function completeTrainingPlan(ctx: Context): Promise<Response> {
 	try {
 		const statsRecordId = Number(paramsStatsRecordId);
 		const totalDaysInCurrentMonth = Number(paramsTotalDaysInCurrentMonth);
-		const membership = paramsMembership as Membership;
 
-		await trainingPlan.completeTrainingPlan(userId, paramsProgramId, paramsStartDate, statsRecordId, totalDaysInCurrentMonth, membership);
+		await trainingPlan.completeTrainingPlan(userId, paramsProgramId, paramsStartDate, statsRecordId, totalDaysInCurrentMonth);
 
 		const response = new Response("success", { status: 200 });
 		return response;
@@ -53,7 +44,7 @@ export async function completeTrainingPlan(ctx: Context): Promise<Response> {
 		const message = getErrorMessage(error);
 		const errorLog: ErrorLog = {
 			worker: "training_plan",
-			endpoint: `/complete-training-plan/${paramsProgramId}/${paramsStatsRecordId}/${paramsStartDate}/${paramsTotalDaysInCurrentMonth}/${paramsMembership}`,
+			endpoint: `/complete-training-plan/${paramsProgramId}/${paramsStatsRecordId}/${paramsStartDate}/${paramsTotalDaysInCurrentMonth}`,
 			function: "completeTrainingPlan",
 			status: 500,
 			message: message,

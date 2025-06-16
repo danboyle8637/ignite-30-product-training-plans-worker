@@ -439,24 +439,7 @@ export class Queries {
 		`;
 	}
 
-	completeTrainingPlanQuery(
-		sql: NeonQueryFunction<any, any>,
-		userId: string,
-		programId: ProgramId,
-		trainingPlanStatsRecordId: number,
-		shouldCancelMembership: boolean
-	) {
-		const completeUserMembershipQuery = sql`
-			UPDATE users.users
-			SET membership_plan = 'cancelled_member',
-					active_training_plan_id = NULL,
-					training_plan = NULL,
-					training_plan_start_date = NULL,
-					training_plan_end_date = NULL,
-					membership_end_date = NULL
-			WHERE user_id = ${userId};
-	`;
-
+	completeTrainingPlanQuery(sql: NeonQueryFunction<any, any>, userId: string, programId: ProgramId, trainingPlanStatsRecordId: number) {
 		const completeUserTrainingPlanQuery = sql`
 			UPDATE users.users
 			SET training_plan = NULL,
@@ -467,25 +450,16 @@ export class Queries {
 			WHERE user_id = ${userId};
 	`;
 
-		const completeUserMembershipAccountQuery = sql`
-			UPDATE users.user_accounts
-			SET membership_plan = 'cancelled_member'
-			WHERE user_id = ${userId};
-	`;
-
 		const updateTrainingPlanStatsQuery = sql`
 			UPDATE training_plans.training_plan_stats
-			SET status = 'canceled'
+			SET status = 'complete'
 			WHERE user_id = ${userId}
 			AND id = ${trainingPlanStatsRecordId}
 			AND program_id = ${programId}
 			AND status = 'active';
 	`;
 
-		const activeQueryArray = shouldCancelMembership
-			? [completeUserMembershipQuery, completeUserMembershipAccountQuery, updateTrainingPlanStatsQuery]
-			: [completeUserTrainingPlanQuery, updateTrainingPlanStatsQuery];
-
+		const activeQueryArray = [completeUserTrainingPlanQuery, updateTrainingPlanStatsQuery];
 		return sql.transaction(activeQueryArray, { isolationLevel: "RepeatableRead" });
 	}
 
@@ -1013,46 +987,4 @@ export class Queries {
 
 		return sql.transaction(queryArray, { isolationLevel: "RepeatableRead" });
 	}
-
-	// createTestLeaderboardQuery(sql: NeonQueryFunction<any, any>) {
-	// 	const insertArray = trainingPlanStats.map((d) => {
-	// 		return sql`
-	// 			INSERT INTO training_plans.training_plan_stats
-	// 				(
-	// 					user_id,
-	// 					status,
-	// 					program_id,
-	// 					start_date,
-	// 					end_date,
-	// 					total_points,
-	// 					primary_goal_streak,
-	// 					longest_primary_goal_streak,
-	// 					complete_day_streak,
-	// 					longest_complete_day_streak,
-	// 					fit_quickie_streak,
-	// 					longest_fit_quickie_streak,
-	// 					days_missed_streak,
-	// 					longest_days_missed_streak
-	// 				)
-	// 				VALUES (
-	// 						${d.user_id},
-	// 						${d.status},
-	// 						${d.program_id},
-	// 						${d.start_date},
-	// 						${d.end_date},
-	// 						${d.total_points},
-	// 						${d.primary_goal_streak},
-	// 						${d.longest_primary_goal_streak},
-	// 						${d.complete_day_streak},
-	// 						${d.longest_complete_day_streak},
-	// 						${d.fit_quickie_streak},
-	// 						${d.longest_fit_quickie_streak},
-	// 						${d.days_missed_streak},
-	// 						${d.longest_days_missed_streak}
-	// 				);
-	// 		`;
-	// 	});
-
-	// 	return sql.transaction(insertArray, { isolationLevel: "RepeatableRead" });
-	// }
 }
