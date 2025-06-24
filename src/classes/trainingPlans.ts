@@ -1,20 +1,13 @@
 import { neon } from "@neondatabase/serverless";
 import { createClient } from "@sanity/client";
-import type { NeonQueryFunction, NeonQueryPromise } from "@neondatabase/serverless";
+import type { NeonQueryFunction, NeonQueryPromise, Client, FullQueryResults } from "@neondatabase/serverless";
 import type { SanityClient } from "@sanity/client";
 import type { Env } from "../types/bindings";
 
 import { Queries } from "../db/queries";
 import { programOverviewQuery, dailyGoalsDetailsQuery } from "../db/sanity";
 import { getLastDayCompleted, calculateDaysMissed, buildMissedDaysStatsArray } from "../helpers";
-import type {
-	ProgramId,
-	TrainingPlanDayStatsRecord,
-	TrainingPlanMissedDaysRecord,
-	TrainingPlanStatus,
-	TrainingPlan,
-	Membership,
-} from "../types";
+import type { ProgramId, TrainingPlanDayStatsRecord, TrainingPlanMissedDaysRecord, TrainingPlanStatus } from "../types";
 import type {
 	CreateTrainigPlanStatsRecordData,
 	ToggleDayChallenge,
@@ -29,10 +22,13 @@ import type {
 	GetCompletedAndCancelledTrainingPlansResBody,
 } from "../types/neon";
 
+interface TrainingPlanStatsUpdateResult {
+	attempt_number: number;
+}
+
 export class TrainingPlans extends Queries {
 	private sanityConfig: SanityClient;
 	private sql: NeonQueryFunction<any, any>;
-	private env: Env;
 
 	constructor(env: Env) {
 		const activeUser = env.ENVIRONMENT === "dev" || env.ENVIRONMENT === "staging" ? env.NEON_STAGING_USER : env.NEON_PROD_USER;
@@ -52,8 +48,6 @@ export class TrainingPlans extends Queries {
 			apiVersion: "2024-01-14",
 			token: env.SANITY_TOKEN,
 		});
-
-		this.env = env;
 	}
 
 	async createTrainingPlanStatsRecord(userId: string, programId: ProgramId, data: CreateTrainigPlanStatsRecordData): Promise<number> {
@@ -196,13 +190,24 @@ export class TrainingPlans extends Queries {
 		return queryResult;
 	}
 
-	async cancelTrainingPlan(
-		userId: string,
-		programId: ProgramId,
-		trainingPlanStatsRecordId: number,
-		shouldCancelMembership: boolean
-	): Promise<NeonQueryPromise<any, any>> {
-		return super.cancelTrainingPlanQuery(this.sql, userId, trainingPlanStatsRecordId, programId, shouldCancelMembership);
+	async cancelTrainingPlan(userId: string, programId: ProgramId, trainingPlanStatsRecordId: number): Promise<NeonQueryPromise<any, any>> {
+		const queryResult: FullQueryResults<any>[] = await super.cancelTrainingPlanQuery(
+			this.sql,
+			userId,
+			trainingPlanStatsRecordId,
+			programId
+		);
+
+		if (queryResult.length === 0) {
+			const message = "Query came back with zero rows. Need to make sure there is no edge case in the query.";
+			throw new Error(message);
+		}
+
+		const updateStatsQueryResult = queryResult[1];
+		const attemptNumberArray = updateStatsQueryResult.rows as TrainingPlanStatsUpdateResult[];
+		const hasAttemptNumberData = updateStatsQueryResult.rows.length > 0;
+		const attemptNumber = hasAttemptNumberData ? attemptNumberArray[0].attempt_number : null;
+		return attemptNumber;
 	}
 
 	async getReportCardUserData(userId: string, programId: ProgramId, trainingPlanStatsId: number, totalPossiblePoints: number) {

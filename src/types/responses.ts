@@ -108,3 +108,7 @@ export interface TrainingPlanReportCardDataResBody {
 	leaderboardData: TrainingPlanLeaderboardResBody;
 	statsData: GetTrainingPlanDayStatsResBody;
 }
+
+export interface CancelTrainingPlanResBody {
+	attemptNumber: number | null;
+}

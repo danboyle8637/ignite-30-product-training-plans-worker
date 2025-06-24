@@ -1,4 +1,4 @@
-import type { NeonQueryFunction, NeonQueryPromise } from "@neondatabase/serverless";
+import type { NeonQueryFunction, NeonQueryPromise, Client } from "@neondatabase/serverless";
 import type { ProgramId, DailyGoalType, TrainingPlanMissedDaysRecord, TrainingPlanStatus } from "../types";
 import type { CreateTrainigPlanStatsRecordData } from "../types/neon";
 
@@ -367,24 +367,7 @@ export class Queries {
 		`;
 	}
 
-	cancelTrainingPlanQuery(
-		sql: NeonQueryFunction<any, any>,
-		userId: string,
-		trainingPlanStatsRecordId: number,
-		programId: ProgramId,
-		shouldCancelMembership: boolean
-	) {
-		const cancelUserMembershipQuery = sql`
-			UPDATE users.users
-			SET membership_plan = 'cancelled_member',
-					active_training_plan_id = NULL,
-					training_plan = NULL,
-					training_plan_start_date = NULL,
-					training_plan_end_date = NULL,
-					membership_end_date = NULL
-			WHERE user_id = ${userId};
-		`;
-
+	cancelTrainingPlanQuery(sql: NeonQueryFunction<any, any>, userId: string, trainingPlanStatsRecordId: number, programId: ProgramId) {
 		const cancelUserTrainingPlanQuery = sql`
 			UPDATE users.users
 			SET training_plan = NULL,
@@ -395,19 +378,14 @@ export class Queries {
 			WHERE user_id = ${userId};
 		`;
 
-		const cancelUserMembershipAccountQuery = sql`
-			UPDATE users.user_accounts
-			SET membership_plan = 'cancelled_member'
-			WHERE user_id = ${userId};
-		`;
-
 		const updateTrainingPlanStatsQuery = sql`
 			UPDATE training_plans.training_plan_stats
 			SET status = 'canceled'
 			WHERE user_id = ${userId}
 			AND id = ${trainingPlanStatsRecordId}
 			AND program_id = ${programId}
-			AND status = 'active';
+			AND status = 'active'
+			RETURNING attempt_number;
 		`;
 
 		const deleteTrainingPlanDayStatsQuery = sql`
@@ -417,11 +395,9 @@ export class Queries {
 			AND program_id = ${programId};
 		`;
 
-		const activeQueryArray = shouldCancelMembership
-			? [cancelUserMembershipQuery, cancelUserMembershipAccountQuery, updateTrainingPlanStatsQuery, deleteTrainingPlanDayStatsQuery]
-			: [cancelUserTrainingPlanQuery, updateTrainingPlanStatsQuery, deleteTrainingPlanDayStatsQuery];
+		const activeQueryArray = [cancelUserTrainingPlanQuery, updateTrainingPlanStatsQuery, deleteTrainingPlanDayStatsQuery];
 
-		return sql.transaction(activeQueryArray, { isolationLevel: "RepeatableRead" });
+		return sql.transaction(activeQueryArray, { isolationLevel: "RepeatableRead", fullResults: true });
 	}
 
 	getTrainingPlanStartDateQuery(

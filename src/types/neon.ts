@@ -1,4 +1,4 @@
-import type { ProgramId, DailyGoalType, LeaderboardType, TrainingPlanStatus } from './index';
+import type { ProgramId, DailyGoalType, LeaderboardType, TrainingPlanStatus } from "./index";
 
 export interface CreateTrainigPlanStatsRecordData {
 	startDate: string;

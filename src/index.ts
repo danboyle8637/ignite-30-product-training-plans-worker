@@ -57,13 +57,13 @@ trainingPlan.get("/get-completed-and-cancelled-training-plans", getCompletedAndC
 
 trainingPlan.get("/get-training-plan-user-report-card/:program_id/:stats_record_id/:total_possible_points", getTrainingPlanReportCard);
 
-trainingPlan.get("/get-training-plna-report-card-data/:program_id/:stats_record_id/:max_points", getTrainingPlanReportCardData);
+trainingPlan.get("/get-training-plan-report-card-data/:program_id/:stats_record_id/:max_points", getTrainingPlanReportCardData);
 
 trainingPlan.get("/get-training-plan-leaderboards/:program_id/:status/:start_date?", getTrainingPlanLeaderboardsData);
 
 trainingPlan.get("/get-training-plan-start-date/:program_id/:stats_record_id", getTrainingPlanStartDate);
 
-trainingPlan.patch("/cancel-training-plan/:program_id/:stats_record_id/:membership", cancelTrainingPlan);
+trainingPlan.patch("/cancel-training-plan/:program_id/:stats_record_id", cancelTrainingPlan);
 
 trainingPlan.patch(`/complete-training-plan/:program_id/:stats_record_id/:start_date/:total_days_in_current_month`, completeTrainingPlan);
 
