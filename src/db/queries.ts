@@ -327,6 +327,7 @@ export class Queries {
 			WHERE user_id = ${userId}
 				AND status = 'complete'
 				OR status = 'canceled'
+				OR status = 'active'
 				ORDER BY end_date DESC;
 		`;
 	}

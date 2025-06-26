@@ -222,3 +222,7 @@ export interface TrainingPlanDaysMissed {
 	missedDays: number;
 	recordsToCreate: number;
 }
+
+export interface CancelTrainingPlanQueryData {
+	attempt_number: number;
+}

@@ -1,13 +1,14 @@
 import type { Context } from "hono";
 
 import { TrainingPlans } from "../classes/trainingPlans";
-import { parseUserAuthorization, getErrorMessage } from "../helpers";
+import { parseUserAuthorization, getErrorMessage, passesRateLimiter } from "../helpers";
 import type { ProgramId } from "../types";
 import type { CancelTrainingPlanResBody, ErrorLog } from "../types/responses";
 import type { Env } from "../types/bindings";
 
 export async function cancelTrainingPlan(ctx: Context): Promise<Response> {
 	const req = ctx.req.raw;
+	const pathname = new URL(req.url).pathname;
 	const headers = req.headers;
 	const authorization = headers.get("Authorization") || "";
 	const paramsProgramId = ctx.req.param("program_id") as ProgramId;
@@ -24,6 +25,16 @@ export async function cancelTrainingPlan(ctx: Context): Promise<Response> {
 	if (!userId) {
 		const response = new Response("Bad Request", { status: 401 });
 		return response;
+	}
+
+	if (env.ENVIRONMENT === "staging" || env.ENVIRONMENT === "production") {
+		const passRateLimit = await passesRateLimiter(pathname, userId, env);
+
+		if (passRateLimit === false) {
+			const message = "Failured Due To Frequency";
+			const response = new Response(message, { status: 429 });
+			return response;
+		}
 	}
 
 	const trainingPlans = new TrainingPlans(env);

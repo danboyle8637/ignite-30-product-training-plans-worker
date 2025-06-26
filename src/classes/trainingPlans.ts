@@ -7,7 +7,13 @@ import type { Env } from "../types/bindings";
 import { Queries } from "../db/queries";
 import { programOverviewQuery, dailyGoalsDetailsQuery } from "../db/sanity";
 import { getLastDayCompleted, calculateDaysMissed, buildMissedDaysStatsArray } from "../helpers";
-import type { ProgramId, TrainingPlanDayStatsRecord, TrainingPlanMissedDaysRecord, TrainingPlanStatus } from "../types";
+import type {
+	ProgramId,
+	TrainingPlanDayStatsRecord,
+	TrainingPlanMissedDaysRecord,
+	TrainingPlanStatus,
+	CancelTrainingPlanQueryData,
+} from "../types";
 import type {
 	CreateTrainigPlanStatsRecordData,
 	ToggleDayChallenge,
@@ -21,10 +27,6 @@ import type {
 	TrainingPlanStartDateResBody,
 	GetCompletedAndCancelledTrainingPlansResBody,
 } from "../types/neon";
-
-interface TrainingPlanStatsUpdateResult {
-	attempt_number: number;
-}
 
 export class TrainingPlans extends Queries {
 	private sanityConfig: SanityClient;
@@ -204,7 +206,7 @@ export class TrainingPlans extends Queries {
 		}
 
 		const updateStatsQueryResult = queryResult[1];
-		const attemptNumberArray = updateStatsQueryResult.rows as TrainingPlanStatsUpdateResult[];
+		const attemptNumberArray = updateStatsQueryResult.rows as CancelTrainingPlanQueryData[];
 		const hasAttemptNumberData = updateStatsQueryResult.rows.length > 0;
 		const attemptNumber = hasAttemptNumberData ? attemptNumberArray[0].attempt_number : null;
 		return attemptNumber;

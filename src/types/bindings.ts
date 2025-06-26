@@ -16,5 +16,5 @@ export type Env = {
 	TODOIST_TOKEN: string;
 	FWW_LIVE_QUEUE: Queue<string>;
 	FWW_LIVE_STAGING_QUEUE: Queue<string>;
-	RATE_LIMITER: any;
+	IGNITE_30_PLANS_RATE_LIMITER: any;
 };

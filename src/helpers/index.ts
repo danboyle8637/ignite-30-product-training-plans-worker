@@ -213,3 +213,9 @@ export const calculateDaysMissed = (
 		recordsToCreate: recordsToCreate,
 	};
 };
+
+export const passesRateLimiter = async (pathname: string, userId: string, env: Env): Promise<boolean> => {
+	const rateLimitKey = `${pathname}_${userId}`;
+	const { success } = await env.IGNITE_30_PLANS_RATE_LIMITER.limit({ key: rateLimitKey });
+	return success as boolean;
+};
