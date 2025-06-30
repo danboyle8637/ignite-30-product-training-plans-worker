@@ -31,6 +31,7 @@ import type {
 export class TrainingPlans extends Queries {
 	private sanityConfig: SanityClient;
 	private sql: NeonQueryFunction<any, any>;
+	private testConfig: (sanityProject: "fww" | "products") => SanityClient;
 
 	constructor(env: Env) {
 		const activeUser = env.ENVIRONMENT === "dev" || env.ENVIRONMENT === "staging" ? env.NEON_STAGING_USER : env.NEON_PROD_USER;
@@ -50,6 +51,19 @@ export class TrainingPlans extends Queries {
 			apiVersion: "2024-01-14",
 			token: env.SANITY_TOKEN,
 		});
+
+		this.testConfig = (sanityProject) => {
+			const projectId = sanityProject === "fww" ? env.SANITY_PROJECT_ID : env.SANITY_PROGRAMS_PROJECT_ID;
+			const dataset = sanityProject === "fww" ? env.SANITY_DATASET : env.SANITY_PROGRAMS_DATASET;
+			const token = sanityProject === "fww" ? env.SANITY_TOKEN : env.SANITY_PROGRAMS_TOKEN;
+			return createClient({
+				projectId: projectId,
+				dataset: dataset,
+				useCdn: true,
+				apiVersion: "2024-01-14",
+				token: token,
+			});
+		};
 	}
 
 	async createTrainingPlanStatsRecord(userId: string, programId: ProgramId, data: CreateTrainigPlanStatsRecordData): Promise<number> {

@@ -11,6 +11,9 @@ export type Env = {
 	SANITY_PROJECT_ID: string;
 	SANITY_DATASET: string;
 	SANITY_TOKEN: string;
+	SANITY_PROGRAMS_PROJECT_ID: string;
+	SANITY_PROGRAMS_DATASET: string;
+	SANITY_PROGRAMS_TOKEN: string;
 	KINDAL_EMAIL: string;
 	ADMIN_ENDPOINT_PASSWORD: string;
 	TODOIST_TOKEN: string;
