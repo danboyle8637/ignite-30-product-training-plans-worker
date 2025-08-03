@@ -1,4 +1,4 @@
-export const rapidRecoveryData = `
+export const getRapidRecoveryWeekQuery = `
   {
     "rapidRecoveryWeekData": *[
       _type == "collection" && 

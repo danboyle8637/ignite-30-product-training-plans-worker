@@ -165,9 +165,9 @@ export class TrainingPlans extends Queries {
 	async getTrainingPlanStats(userId: string, programId: ProgramId): Promise<TrainngPlanStatsQueryResult> {
 		const queryResult: TrainngPlanStatsQueryResult[] = await super.getTrainingPlanStatsQuery(this.sql, userId, programId);
 
-		if (queryResult.length === 0 || queryResult.length > 1) {
-			throw new Error("Training plan stats could not be sent back.");
-		}
+		// if (queryResult.length === 0 || queryResult.length > 1) {
+		// 	throw new Error("Training plan stats could not be sent back.");
+		// }
 
 		const trainingPlanStats = queryResult[0];
 		return trainingPlanStats;
@@ -179,6 +179,10 @@ export class TrainingPlans extends Queries {
 			userId,
 			trainingPlanStatsRecordId
 		);
+
+		if (queryResult.length === 0) {
+			return [];
+		}
 
 		const trainingPlanResultsArray = queryResult.map((r): TrainingPlanDayStatsRecord => {
 			return {

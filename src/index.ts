@@ -31,6 +31,7 @@ import type { Env } from "./types/bindings";
 
 const app = new Hono();
 const trainingPlan = new Hono<{ Bindings: Env }>();
+const rapidRecovery = new Hono<{ Bindings: Env }>();
 const admin = new Hono<{ Bindings: Env }>();
 
 app.use("/*", corsConfig);
@@ -76,9 +77,14 @@ trainingPlan.patch(
 
 trainingPlan.patch("/update-training-plan-stats-streaks/:program_id/:stats_record_id", updateTrainingPlanStatsStreaks);
 
+// RAPID RECOVERY
+
+rapidRecovery.get("/");
+
 app.notFound(badRequest);
 
 app.route("/api/training-plan", trainingPlan);
+app.route("/api/rapid-recovery", rapidRecovery);
 app.route("/admin", admin);
 
 export default {
