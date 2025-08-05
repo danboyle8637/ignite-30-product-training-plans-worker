@@ -1,4 +1,5 @@
 import type { HandleFunction, DailyGoalType, TrainingPlanDayStatsRecord, ProgramId, LeaderboardType, TrainingPlanStatus } from "../types";
+import type { RapidRecoveryWeekCard, RapidRecoveryWeekData } from "../types/rapidRecovery";
 
 export interface ErrorLog {
 	worker: "training_plan";
@@ -111,4 +112,12 @@ export interface TrainingPlanReportCardDataResBody {
 
 export interface CancelTrainingPlanResBody {
 	attemptNumber: number | null;
+}
+
+export interface RapidRecoveryWeekCardsResBody {
+	cards: RapidRecoveryWeekCard[];
+}
+
+export interface RapidRecoveryWeekSessionResBody {
+	weekData: RapidRecoveryWeekData;
 }

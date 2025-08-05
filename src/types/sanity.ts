@@ -1,3 +1,5 @@
+import type { RapidRecoveryWeekCard, RapidRecoveryWeekData } from "./rapidRecovery";
+
 type ExerciseType = "strength" | "stretch" | "mobility" | "trigger_ball" | "running";
 
 type VideoHost = "youtube" | "cloudflare";
@@ -44,8 +46,12 @@ export interface CardData {
 	cardDescription: string;
 }
 
-export interface RapidRecoveryWeekData {
-	cardData: CardData;
-	videoSession: VideoWorkoutSession[];
-	exercises: Exercise[];
+// Rapid Recovery
+
+export interface GetAllRapidRecoveryWeekCardsData {
+	rapidRecoveryWeekCardsData: RapidRecoveryWeekCard[];
+}
+
+export interface GetRapidRecoveryWeekSessionData {
+	rapidRecoveryWeekData: RapidRecoveryWeekData;
 }
