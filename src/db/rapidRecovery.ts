@@ -40,14 +40,15 @@ export const getAllRapidRecoveryWeekCardsQuery = `
   {
     "rapidRecoveryWeekCardsData": *[
       _type == "collection" && 
-      program -> programId == "rapid_recovery"] {
+      program -> programId == "rapid_recovery"] | order(order asc) {
         "id": _id,
         "order": order,
         "cardImage": collectionCardImage.mainImage.asset->url,
         "cardImageAltTag": collectionCardImage.imageAltTag,
         "cardImageTitleTag": collectionCardImage.imageTitleTag,
-        "cardTitle": title,
+        "cardTitle": cardTitle,
         "cardDescription": shortDescription,
+        "sessionSlug": slug.current,
       }
   }
 `;

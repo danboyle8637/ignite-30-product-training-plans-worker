@@ -37,6 +37,7 @@ export interface RapidRecoveryWeekCard {
 	cardImageTitleTag: string;
 	cardTitle: string;
 	cardDescripiton: string;
+	sessionSlug: string;
 }
 
 export interface RapidRecoveryWeekData {
