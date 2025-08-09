@@ -1,10 +1,12 @@
-import type { HandleFunction, DailyGoalType, TrainingPlanDayStatsRecord, ProgramId, LeaderboardType, TrainingPlanStatus } from "../types";
+import type { HandlerFunction, DailyGoalType, TrainingPlanDayStatsRecord, ProgramId, LeaderboardType, TrainingPlanStatus } from "../types";
 import type { RapidRecoveryWeekCard, RapidRecoveryWeekData } from "../types/rapidRecovery";
+import type { Environment } from "./bindings";
 
 export interface ErrorLog {
-	worker: "training_plan";
+	environment: Environment;
+	worker: string;
 	endpoint: string;
-	function: HandleFunction;
+	function: HandlerFunction;
 	status: number;
 	message: string;
 	goalType?: DailyGoalType;

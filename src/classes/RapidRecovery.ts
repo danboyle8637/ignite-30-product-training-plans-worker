@@ -2,7 +2,7 @@ import { createClient } from "@sanity/client";
 import type { SanityClient } from "@sanity/client";
 import type { Env } from "../types/bindings";
 
-import { getRapidRecoveryWeekQuery, getAllRapidRecoveryWeekCardsQuery, getRapidRecoveryWeekSessionData } from "../db/rapidRecovery";
+import { getAllRapidRecoveryWeekCardsQuery, getRapidRecoveryWeekSessionData } from "../db/rapidRecovery";
 
 export class RapidRecovery {
 	private sanityProgramsConfig: SanityClient;
@@ -19,11 +19,11 @@ export class RapidRecovery {
 		});
 	}
 
-	async getRapidRecoveryWeek() {
-		return this.sanityProgramsConfig.fetch(getRapidRecoveryWeekQuery, {
-			programId: this.programId,
-		});
-	}
+	// async getRapidRecoveryWeek() {
+	// 	return this.sanityProgramsConfig.fetch(getRapidRecoveryWeekQuery, {
+	// 		programId: this.programId,
+	// 	});
+	// }
 
 	async getAllRapidRecoveryWeekCards() {
 		return this.sanityProgramsConfig.fetch(getAllRapidRecoveryWeekCardsQuery);

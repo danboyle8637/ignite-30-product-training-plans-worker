@@ -4,7 +4,9 @@ import type {
 	TrainingPlanMissedDaysRecord,
 	LastTrainingDayRecordedData,
 	TrainingPlanDaysMissed,
+	HandlerFunction,
 } from "../types";
+import type { ErrorLog } from "../types/responses";
 import type { ActiveMonth, MissedDaysArrays } from "../types/utils";
 import type { Env } from "../types/bindings";
 
@@ -219,3 +221,23 @@ export const passesRateLimiter = async (pathname: string, userId: string, env: E
 	const { success } = await env.IGNITE_30_PLANS_RATE_LIMITER.limit({ key: rateLimitKey });
 	return success as boolean;
 };
+
+export function createErrorLog(
+	endpoint: string,
+	handlerFunction: HandlerFunction,
+	status: number,
+	message: string,
+	env: Env
+): Promise<void> {
+	const error: ErrorLog = {
+		environment: env.ENVIRONMENT,
+		worker: "ignite_30_plans_worker",
+		endpoint: endpoint,
+		function: handlerFunction,
+		status: status,
+		message: message,
+	};
+
+	const queuePromise = env.IGNITE_30_LOGGING_QUEUE.send(JSON.stringify(error));
+	return queuePromise;
+}

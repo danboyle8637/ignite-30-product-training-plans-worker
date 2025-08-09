@@ -1,10 +1,9 @@
 import type { Context } from "hono";
 
 import { TrainingPlans } from "../classes/trainingPlans";
-import { parseUserAuthorization, getErrorMessage, passesRateLimiter } from "../helpers";
+import { parseUserAuthorization, getErrorMessage, passesRateLimiter, createErrorLog } from "../helpers";
 import { JSON_CONTENT_TYPE } from "../helpers/constants";
-import type { ProgramId } from "../types";
-import type { ErrorLog } from "../types/responses";
+import type { ProgramId, HandlerFunction } from "../types";
 import type { Env } from "../types/bindings";
 
 export async function updateTrainingPlanMissedDaysStreak(ctx: Context): Promise<Response> {
@@ -18,6 +17,10 @@ export async function updateTrainingPlanMissedDaysStreak(ctx: Context): Promise<
 	const paramNumberOfMissedDays = ctx.req.param("number_of_missed_days");
 	const env: Env = ctx.env;
 
+	// LOGGING
+	const endpoint = `/update-training-plan-missed-days-streak/${paramProgramId}/${paramStatsRecordId}/${paramNumberOfMissedDays}`;
+	const handlerFunction: HandlerFunction = "updateTrainingPlanMissedDaysStreak";
+
 	if (contentType !== JSON_CONTENT_TYPE || !paramProgramId || !paramStatsRecordId || !paramNumberOfMissedDays) {
 		const response = new Response("Bad Request", { status: 400 });
 		return response;
@@ -26,6 +29,9 @@ export async function updateTrainingPlanMissedDaysStreak(ctx: Context): Promise<
 	const userId = parseUserAuthorization(authorization);
 
 	if (!userId) {
+		const message = "Unauthorized access with no user_id";
+		const errorQueuePromise = createErrorLog(endpoint, handlerFunction, 401, message, env);
+		ctx.executionCtx.waitUntil(errorQueuePromise);
 		const response = new Response("Bad Request", { status: 401 });
 		return response;
 	}
@@ -34,6 +40,9 @@ export async function updateTrainingPlanMissedDaysStreak(ctx: Context): Promise<
 		const passRateLimit = await passesRateLimiter(pathname, userId, env);
 
 		if (passRateLimit === false) {
+			const errorMessage = `Rate limit error based on this user_id: ${userId}`;
+			const errorQueuePromise = createErrorLog(endpoint, handlerFunction, 401, errorMessage, env);
+			ctx.executionCtx.waitUntil(errorQueuePromise);
 			const message = "Failured Due To Frequency";
 			const response = new Response(message, { status: 429 });
 			return response;
@@ -51,20 +60,11 @@ export async function updateTrainingPlanMissedDaysStreak(ctx: Context): Promise<
 		return response;
 	} catch (error) {
 		const message = getErrorMessage(error);
-		const errorLog: ErrorLog = {
-			worker: "training_plan",
-			endpoint: `/update-training-plan-missed-days-streak/${paramProgramId}/${paramStatsRecordId}/${paramNumberOfMissedDays}`,
-			function: "updateTrainingPlanMissedDaysStreak",
-			status: 500,
-			message: message,
-		};
+		const errorQueuePromise = createErrorLog(endpoint, handlerFunction, 401, message, env);
+		ctx.executionCtx.waitUntil(errorQueuePromise);
 
-		if (env.ENVIRONMENT === "staging") {
-			ctx.executionCtx.waitUntil(env.FWW_LIVE_STAGING_QUEUE.send(JSON.stringify(errorLog)));
-		}
-
-		if (env.ENVIRONMENT === "production") {
-			ctx.executionCtx.waitUntil(env.FWW_LIVE_QUEUE.send(JSON.stringify(errorLog)));
+		if (env.ENVIRONMENT === "staging" || env.ENVIRONMENT === "production") {
+			ctx.executionCtx.waitUntil(errorQueuePromise);
 		}
 
 		const response = new Response(getErrorMessage(error), { status: 500 });

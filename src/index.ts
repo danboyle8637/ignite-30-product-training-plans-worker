@@ -24,7 +24,6 @@ import { badRequest } from "./handlers/badRequest";
 import { testHandler } from "./handlers/test";
 
 // *** Rapid Recovery *** //
-import { getRapidRecoveryWeeksData } from "./handlers/rapidRecovery/getRapidRecoveryWeeksData";
 import { getAllRapidRecoveryWeekCardsData } from "./handlers/rapidRecovery/getAllRapidRecoveryWeekCards";
 import { getRapidRecoveryWeekSessionData } from "./handlers/rapidRecovery/getRapidRecoveryWeekSessionData";
 
@@ -83,8 +82,6 @@ trainingPlan.patch(
 trainingPlan.patch("/update-training-plan-stats-streaks/:program_id/:stats_record_id", updateTrainingPlanStatsStreaks);
 
 // RAPID RECOVERY
-rapidRecovery.get("/get-rapid-recovery-weeks-data", getRapidRecoveryWeeksData);
-
 rapidRecovery.get("/get-rapid-recovery-week-cards", getAllRapidRecoveryWeekCardsData);
 
 rapidRecovery.get("/get-rapid-recovery-week-session-data/:week_number", getRapidRecoveryWeekSessionData);

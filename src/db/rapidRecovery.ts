@@ -1,4 +1,4 @@
-export const getRapidRecoveryWeekQuery = `
+const getRapidRecoveryWeekQuery = `
   {
     "rapidRecoveryWeekData": *[
       _type == "collection" && 
@@ -58,7 +58,7 @@ export const getRapidRecoveryWeekSessionData = `
     "rapidRecoveryWeekData": *[
       _type == "collection" && 
       program -> programId == $programId && order == $order][0] {
-      "videoSession": videoCollection[]-> {
+      "videoSessions": videoCollection[]-> {
         "id": _id,
         "order": video.order,
         "videoType": video.videoType,
@@ -77,13 +77,16 @@ export const getRapidRecoveryWeekSessionData = `
         "cardImageTitleTag": exerciseImage.imageTitleTag,
         "cardImageWidth": exerciseImage.imageWidth,
         "cardImageHeight": exerciseImage.imageHeight,
-        "breakdown": description,
+        "breakdown": description[] {
+            ...,
+            "workoutImageUrl": mainImage.asset->url,
+          },
       }
     }
   }
 `;
 
-export const rapidRecoveryWeekData = `
+const rapidRecoveryWeekData = `
   {
     "videoSession": videoCollection[]-> {
       "id": _id,
@@ -103,7 +106,10 @@ export const rapidRecoveryWeekData = `
       "cardImageTitleTag": exerciseImage.imageTitleTag,
       "cardImageWidth": exerciseImage.imageWidth,
       "cardImageHeight": exerciseImage.imageHeight,
-      "breakdown": description,
+      "breakdown": description[] {
+          ...,
+          "workoutImageUrl": mainImage.asset->url,
+        },
     }
   }
 `;

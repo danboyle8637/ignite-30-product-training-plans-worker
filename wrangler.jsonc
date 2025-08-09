@@ -6,13 +6,44 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "ignite-30-plans-worker",
 	"main": "src/index.ts",
-	"compatibility_date": "2025-01-29",
+	"compatibility_date": "2025-08-07",
 	"observability": {
 		"enabled": true
 	},
 	"dev": {
 		"port": 8555,
 		"local_protocol": "http"
+	},
+	"env": {
+		"dev": {
+			"name": "ignite-30-plans-worker-dev",
+			"observability": {
+				"enabled": true,
+				"head_sampling_rate": 1
+			}
+		},
+		"staging": {
+			"name": "ignite-30-plans-worker-staging",
+			"observability": {
+				"enabled": true,
+				"head_sampling_rate": 1
+			}
+		},
+		"production": {
+			"name": "ignite-30-plans-worker-production",
+			"observability": {
+				"enabled": true,
+				"head_sampling_rate": 1
+			}
+		}
+	},
+	"queues": {
+		"producers": [
+			{
+				"binding": "IGNITE_30_LOGGING_QUEUE",
+				"queue": "ignite-30-logging-queue"
+			}
+		]
 	},
 	"unsafe": {
 		"bindings": [

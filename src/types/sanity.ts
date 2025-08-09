@@ -55,3 +55,8 @@ export interface GetAllRapidRecoveryWeekCardsData {
 export interface GetRapidRecoveryWeekSessionData {
 	rapidRecoveryWeekData: RapidRecoveryWeekData;
 }
+
+export interface SanityImage {
+	_ref: string;
+	_type: string;
+}

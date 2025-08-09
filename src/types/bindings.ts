@@ -1,5 +1,9 @@
+import type { Queue } from "@cloudflare/workers-types";
+
+export type Environment = "dev" | "staging" | "production";
+
 export type Env = {
-	ENVIRONMENT: "dev" | "staging" | "production";
+	ENVIRONMENT: Environment;
 	NEON_STAGING_USER: string;
 	NEON_STAGING_PASSWORD: string;
 	NEON_STAGING_HOST: string;
@@ -17,7 +21,6 @@ export type Env = {
 	KINDAL_EMAIL: string;
 	ADMIN_ENDPOINT_PASSWORD: string;
 	TODOIST_TOKEN: string;
-	FWW_LIVE_QUEUE: Queue<string>;
-	FWW_LIVE_STAGING_QUEUE: Queue<string>;
 	IGNITE_30_PLANS_RATE_LIMITER: any;
+	IGNITE_30_LOGGING_QUEUE: Queue<string>;
 };

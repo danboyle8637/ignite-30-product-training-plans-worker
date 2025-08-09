@@ -187,7 +187,7 @@ export interface TrainingPlanMissedDaysRecord {
 	dayDate: string;
 }
 
-export type HandleFunction =
+export type HandlerFunction =
 	| "createTrainingPlanStatsRecord"
 	| "toggleDayChallenge"
 	| "handleMissedDays"
@@ -206,7 +206,8 @@ export type HandleFunction =
 	| "completeTrainingPlan"
 	| "updateTrainingPlanMissedDaysStreak"
 	| "getTrainingPlanReportCardData"
-	| "getRapidRecoveryWeeksData";
+	| "getRapidRecoveryWeeksData"
+	| "badRequest";
 
 export interface TrainingPlanCardData {
 	id: number;

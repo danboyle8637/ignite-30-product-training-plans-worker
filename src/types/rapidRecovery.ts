@@ -1,3 +1,7 @@
+export type ExerciseType = "mobility" | "stretch" | "trigger_ball";
+
+export type VideoSessionType = "trigger_ball" | "stretch_mobility";
+
 export interface RapidRecoveryWeeksData {
 	cardData: {
 		id: string;
@@ -41,49 +45,29 @@ export interface RapidRecoveryWeekCard {
 }
 
 export interface RapidRecoveryWeekData {
-	videoSession: {
-		id: string;
-		videoType: string;
-		videoHost: string;
-		videoTitle: string;
-		videoId: string;
-		sessionWorkoutDetails: [];
-	};
-	exercises: {
-		id: string;
-		type: string;
-		title: string;
-		description: string;
-		cardImageUrl: string;
-		cardImageAltTag: string;
-		cardImageTitleTag: string;
-		cardImageWidth: string;
-		cardImageHeight: string;
-		breakdown: string;
-	};
+	videoSessions: RapidRecoveryVideoSession[];
+	exercises: RapidRecoveryExercise[];
 }
 
-export interface RapidRecoveryExerciseCardsData {
-	exercises: {
-		id: string;
-		type: string;
-		title: string;
-		description: string;
-		cardImage: string;
-		cardImageAltTag: string;
-		cardImageTitleTag: string;
-		cardImageWidth: string;
-		cardImageHeight: string;
-	};
+export interface RapidRecoveryExercise {
+	id: string;
+	type: ExerciseType;
+	title: string;
+	description: string;
+	cardImageUrl: string;
+	cardImageAltTag: string;
+	cardImageTitleTag: string;
+	cardImageWidth: string;
+	cardImageHeight: string;
+	breakdown: string;
 }
 
-export interface RapidRecoveryVideoAndWorkoutData {
-	videoSession: {
-		id: string;
-		videoType: string;
-		videoHost: string;
-		videoTitle: string;
-		videoId: string;
-		sessionWoroutDetails: [];
-	};
+export interface RapidRecoveryVideoSession {
+	id: string;
+	order: number;
+	videoType: VideoSessionType;
+	videoHost: string;
+	videoTitle: string;
+	videoId: string;
+	sessionWoroutDetails: [];
 }
