@@ -6,7 +6,7 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "ignite-30-plans-worker",
 	"main": "src/index.ts",
-	"compatibility_date": "2025-08-07",
+	"compatibility_date": "2025-04-24",
 	"observability": {
 		"enabled": true
 	},
