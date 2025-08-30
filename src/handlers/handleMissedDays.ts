@@ -66,7 +66,7 @@ export async function handleMissedDays(ctx: Context): Promise<Response> {
 		startDate === undefined ||
 		numberOfMissedDays === undefined ||
 		numberOfMissedDayRecordsToCreate === undefined ||
-		!lastTrainingPlanDayStatsDayRecorded ||
+		lastTrainingPlanDayStatsDayRecorded === undefined ||
 		lastTrainingPlanDayStatsDayDateRecorded === undefined ||
 		!totalDaysInCurrentMonth
 	) {

@@ -238,6 +238,10 @@ export function createErrorLog(
 		message: message,
 	};
 
-	const queuePromise = env.IGNITE_30_LOGGING_QUEUE.send(JSON.stringify(error));
-	return queuePromise;
+	if (env.ENVIRONMENT !== "dev") {
+		const queuePromise = env.IGNITE_30_LOGGING_QUEUE.send(JSON.stringify(error));
+		return queuePromise;
+	}
+
+	return new Promise(() => {});
 }
