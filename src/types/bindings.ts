@@ -1,5 +1,3 @@
-import type { Queue } from "@cloudflare/workers-types";
-
 export type Environment = "dev" | "staging" | "production";
 
 export type Env = {
