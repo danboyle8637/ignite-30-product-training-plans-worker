@@ -243,5 +243,5 @@ export function createErrorLog(
 		return queuePromise;
 	}
 
-	return new Promise(() => {});
+	return new Promise((resolve) => resolve());
 }
