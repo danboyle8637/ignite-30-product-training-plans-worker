@@ -29,19 +29,19 @@ export const dailyGoalsDetailsQuery = `
         "isFoundationWorkout": busyGoal.isFoundationWorkout,
         "isDrillWorkout": busyGoal.isDrillWorkout,
         "goalDetails": busyGoal.goalDetails,
-        "videoId": primaryGoal.videoEmbed.videoId,
+        "videoId": busyGoal.videoEmbed.videoId,
       },
       "motivationGoal": {
         "goalLink": motivationGoal.goalLink,
         "title": motivationGoal.title,
         "goalDetails": motivationGoal.goalDetails,
-        "videoId": primaryGoal.videoEmbed.videoId,
+        "videoId": motivationGoal.videoEmbed.videoId,
       },
       "coachingGoal": {
         "goalLink": coachingGoal.goalLink,
         "title": coachingGoal.title,
         "goalDetails": coachingGoal.goalDetails,
-        "videoId": primaryGoal.videoEmbed.videoId,
+        "videoId": coachingGoal.videoEmbed.videoId,
       }
     }
   }
