@@ -5,7 +5,6 @@ import { parseUserAuthorization, getErrorMessage, passesRateLimiter, createError
 import { JSON_CONTENT_TYPE } from "../helpers/constants";
 import type { ProgramId, HandlerFunction } from "../types";
 import type { StartTrainingPlanReqBody } from "../types/requests";
-import type { Env } from "../types/bindings";
 
 export async function createTrainingPlanStatsRecord(ctx: Context): Promise<Response> {
 	const req = ctx.req.raw;

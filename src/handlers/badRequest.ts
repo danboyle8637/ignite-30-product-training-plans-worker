@@ -2,7 +2,6 @@ import type { Context } from "hono";
 
 import { createErrorLog } from "../helpers";
 import type { HandlerFunction } from "../types";
-import type { Env } from "../types/bindings";
 
 export async function badRequest(ctx: Context) {
 	const env: Env = ctx.env;

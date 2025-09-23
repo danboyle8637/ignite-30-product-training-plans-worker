@@ -3,7 +3,6 @@ import type { Context } from "hono";
 import { RapidRecovery } from "../../classes/RapidRecovery";
 import { getErrorMessage, parseUserAuthorization, passesRateLimiter, createErrorLog } from "../../helpers";
 import { JSON_CONTENT_TYPE } from "../../helpers/constants";
-import type { Env } from "../../types/bindings";
 import type { HandlerFunction } from "../../types";
 import type { GetAllRapidRecoveryWeekCardsData } from "../../types/sanity";
 import type { RapidRecoveryWeekCardsResBody } from "../../types/responses";

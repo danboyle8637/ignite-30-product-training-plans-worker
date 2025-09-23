@@ -1,6 +1,5 @@
 import { createClient } from "@sanity/client";
 import type { SanityClient } from "@sanity/client";
-import type { Env } from "../types/bindings";
 
 import { getAllRapidRecoveryWeekCardsQuery, getRapidRecoveryWeekSessionData } from "../db/rapidRecovery";
 

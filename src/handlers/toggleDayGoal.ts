@@ -6,7 +6,6 @@ import { JSON_CONTENT_TYPE } from "../helpers/constants";
 import type { DailyGoalType, ProgramId, HandlerFunction } from "../types";
 import type { ToggleDayChallenge } from "../types/neon";
 import type { ToggleDayChallengeReqBody } from "../types/requests";
-import type { Env } from "../types/bindings";
 
 export async function toggleDayGoal(ctx: Context): Promise<Response> {
 	const req = ctx.req.raw;

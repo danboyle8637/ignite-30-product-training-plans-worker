@@ -1,8 +1,7 @@
 import { neon } from "@neondatabase/serverless";
 import { createClient } from "@sanity/client";
-import type { NeonQueryFunction, NeonQueryPromise, Client, FullQueryResults } from "@neondatabase/serverless";
+import type { NeonQueryFunction, NeonQueryPromise, FullQueryResults } from "@neondatabase/serverless";
 import type { SanityClient } from "@sanity/client";
-import type { Env } from "../types/bindings";
 
 import { Queries } from "../db/queries";
 import { programOverviewQuery, dailyGoalsDetailsQuery } from "../db/sanity";

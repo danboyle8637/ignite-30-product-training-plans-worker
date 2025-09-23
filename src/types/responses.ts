@@ -1,9 +1,8 @@
 import type { HandlerFunction, DailyGoalType, TrainingPlanDayStatsRecord, ProgramId, LeaderboardType, TrainingPlanStatus } from "../types";
 import type { RapidRecoveryWeekCard, RapidRecoveryWeekData } from "../types/rapidRecovery";
-import type { Environment } from "./bindings";
 
 export interface ErrorLog {
-	environment: Environment;
+	environment: string;
 	worker: string;
 	endpoint: string;
 	function: HandlerFunction;

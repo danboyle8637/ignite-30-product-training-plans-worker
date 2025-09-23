@@ -4,7 +4,6 @@ import { TrainingPlans } from "../classes/trainingPlans";
 import { parseUserAuthorization, getErrorMessage, passesRateLimiter, createErrorLog } from "../helpers";
 import { JSON_CONTENT_TYPE } from "../helpers/constants";
 import type { ProgramId, HandlerFunction } from "../types";
-import type { Env } from "../types/bindings";
 
 export async function getTrainingPlanCompletedDaysArray(ctx: Context): Promise<Response> {
 	const req = ctx.req.raw;

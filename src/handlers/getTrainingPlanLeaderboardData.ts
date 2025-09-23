@@ -4,7 +4,6 @@ import { TrainingPlans } from "../classes/trainingPlans";
 import { parseUserAuthorization, getErrorMessage, passesRateLimiter, createErrorLog } from "../helpers";
 import { JSON_CONTENT_TYPE } from "../helpers/constants";
 import type { ProgramId, TrainingPlanStatus, HandlerFunction } from "../types";
-import type { Env } from "../types/bindings";
 import type { TrainingPlanLeaderboardRow, TrainingPlanLeaderboardResBody } from "../types/responses";
 
 export async function getTrainingPlanLeaderboardsData(ctx: Context): Promise<Response> {

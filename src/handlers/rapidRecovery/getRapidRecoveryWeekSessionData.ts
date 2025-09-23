@@ -4,7 +4,6 @@ import { RapidRecovery } from "../../classes/RapidRecovery";
 import { getErrorMessage, parseUserAuthorization, passesRateLimiter, createErrorLog } from "../../helpers";
 import { JSON_CONTENT_TYPE } from "../../helpers/constants";
 import type { HandlerFunction } from "../../types";
-import type { Env } from "../../types/bindings";
 import type { GetRapidRecoveryWeekSessionData } from "../../types/sanity";
 import type { RapidRecoveryWeekSessionResBody } from "../../types/responses";
 

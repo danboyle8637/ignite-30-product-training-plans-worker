@@ -8,7 +8,6 @@ import type {
 } from "../types";
 import type { ErrorLog } from "../types/responses";
 import type { ActiveMonth, MissedDaysArrays } from "../types/utils";
-import type { Env } from "../types/bindings";
 
 export function getErrorMessage(error: unknown) {
 	if (error instanceof Error) return error.message;

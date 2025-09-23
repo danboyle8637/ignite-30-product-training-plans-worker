@@ -4,7 +4,6 @@ import { TrainingPlans } from "../classes/trainingPlans";
 import { parseUserAuthorization, getErrorMessage, passesRateLimiter, createErrorLog } from "../helpers";
 import type { ProgramId, HandlerFunction } from "../types";
 import type { CancelTrainingPlanResBody } from "../types/responses";
-import type { Env } from "../types/bindings";
 
 export async function cancelTrainingPlan(ctx: Context): Promise<Response> {
 	const req = ctx.req.raw;

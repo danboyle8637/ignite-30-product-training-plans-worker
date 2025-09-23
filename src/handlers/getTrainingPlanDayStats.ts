@@ -3,7 +3,6 @@ import type { Context } from "hono";
 import { TrainingPlans } from "../classes/trainingPlans";
 import { parseUserAuthorization, getErrorMessage, passesRateLimiter, createErrorLog } from "../helpers";
 import { JSON_CONTENT_TYPE } from "../helpers/constants";
-import type { Env } from "../types/bindings";
 import type { HandlerFunction } from "../types";
 import type { GetTrainingPlanDayStatsResBody } from "../types/responses";
 

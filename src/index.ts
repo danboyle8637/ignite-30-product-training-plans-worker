@@ -30,9 +30,6 @@ import { getRapidRecoveryWeekSessionData } from "./handlers/rapidRecovery/getRap
 // *** Helpers *** //
 import { corsConfig } from "./helpers/honoConfig";
 
-// *** Types *** //
-import type { Env } from "./types/bindings";
-
 const app = new Hono();
 const trainingPlan = new Hono<{ Bindings: Env }>();
 const rapidRecovery = new Hono<{ Bindings: Env }>();
@@ -40,7 +37,7 @@ const admin = new Hono<{ Bindings: Env }>();
 
 app.use("/*", corsConfig);
 
-trainingPlan.all("/test", testHandler);
+// trainingPlan.all("/test", testHandler);
 
 trainingPlan.get("/get-training-plan-details/:program_id", getTrainingPlanDetails);
 

@@ -5,7 +5,6 @@ import { parseUserAuthorization, getErrorMessage, buildMissedDaysStatsArray, pas
 import { JSON_CONTENT_TYPE } from "../helpers/constants";
 import type { HandlerFunction } from "../types";
 import type { HandleMissedDaysReqBody } from "../types/requests";
-import type { Env } from "../types/bindings";
 import type { HandleMissedDaysResBody } from "../types/responses";
 
 export async function handleMissedDays(ctx: Context): Promise<Response> {
