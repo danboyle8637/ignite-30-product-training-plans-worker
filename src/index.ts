@@ -5,7 +5,7 @@ import { createTrainingPlanStatsRecord } from "./handlers/createTrainingPlanStat
 import { toggleDayGoal } from "./handlers/toggleDayGoal";
 import { getTrainingPlanStats } from "./handlers/getTrainingPlanStats";
 import { getTrainingnPlanDayStats } from "./handlers/getTrainingPlanDayStats";
-import { getLastDayCompleted } from "./handlers/getLastDayCompleted";
+// import { getLastDayCompleted } from "./handlers/getLastDayCompleted";
 import { getTrainingPlanCompletedDaysArray } from "./handlers/getTrainingPlanCompletedDaysArray";
 import { handleMissedDays } from "./handlers/handleMissedDays";
 import { updateTrainingPlanMissedDaysStreak } from "./handlers/updateTrainingPlanMissedDaysStreak";
@@ -47,9 +47,9 @@ trainingPlan.get("/get-training-plan-stats/:program_id", getTrainingPlanStats);
 
 trainingPlan.get("/get-training-plan-day-stats/:stats_record_id", getTrainingnPlanDayStats);
 
-trainingPlan.get("/last-day-completed/:program_id/:stats_record_id", getLastDayCompleted);
+// trainingPlan.get("/last-day-completed/:program_id/:stats_record_id", getLastDayCompleted);
 
-trainingPlan.get("/get-training-plan-completed-days-array/:program_id/:stats_record_id", getTrainingPlanCompletedDaysArray);
+// trainingPlan.get("/get-training-plan-completed-days-array/:program_id/:stats_record_id", getTrainingPlanCompletedDaysArray);
 
 trainingPlan.post("/create-training-plan-stats-record/:program_id", createTrainingPlanStatsRecord);
 
@@ -63,7 +63,7 @@ trainingPlan.get("/get-training-plan-report-card-data/:program_id/:stats_record_
 
 trainingPlan.get("/get-training-plan-leaderboards/:program_id/:status/:start_date?", getTrainingPlanLeaderboardsData);
 
-trainingPlan.get("/get-training-plan-start-date/:program_id/:stats_record_id", getTrainingPlanStartDate);
+// trainingPlan.get("/get-training-plan-start-date/:program_id/:stats_record_id", getTrainingPlanStartDate);
 
 trainingPlan.patch("/cancel-training-plan/:program_id/:stats_record_id", cancelTrainingPlan);
 

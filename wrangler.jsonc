@@ -16,6 +16,9 @@
 	},
 	"workers_dev": false,
 	"preview_urls": false,
+	"vars": {
+		"ENVIRONMENT": "dev"
+	},
 	"queues": {
 		"producers": [
 			{
@@ -40,6 +43,9 @@
 	"env": {
 		"dev": {
 			"name": "ignite-30-plans-worker-dev",
+			"vars": {
+				"ENVIRONMENT": "dev"
+			},
 			"observability": {
 				"enabled": true,
 				"head_sampling_rate": 1
@@ -47,6 +53,9 @@
 		},
 		"staging": {
 			"name": "ignite-30-plans-worker-staging",
+			"vars": {
+				"ENVIRONMENT": "staging"
+			},
 			"observability": {
 				"enabled": true,
 				"head_sampling_rate": 1
@@ -75,6 +84,9 @@
 		},
 		"production": {
 			"name": "ignite-30-plans-worker-production",
+			"vars": {
+				"ENVIRONMENT": "production"
+			},
 			"observability": {
 				"enabled": true,
 				"head_sampling_rate": 1
