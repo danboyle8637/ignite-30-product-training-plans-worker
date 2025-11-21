@@ -106,7 +106,7 @@ export const buildMissedDaysStatsArray = (
 	lastTrainingPlanDayStatsDayRecorded: number,
 	lastTrainingPlanDayStatsDayDateRecorded: string,
 	totalDaysInCurrentMonth: number,
-	startDate: string
+	startDate: string,
 ): MissedDaysArrays => {
 	let missedDaysQueryArray: TrainingPlanMissedDaysRecord[] = [];
 	let missedDaysArray: TrainingPlanDayStatsRecord[] = [];
@@ -171,7 +171,7 @@ export const getLastDayCompleted = (dayStatsArray: TrainingPlanDayStatsRecord[])
 
 export const calculateDaysMissed = (
 	dayStatsArray: TrainingPlanDayStatsRecord[],
-	currentTrainingPlanDay: number
+	currentTrainingPlanDay: number,
 ): TrainingPlanDaysMissed => {
 	// Subtract 1 for today... the current training plan day
 	// const noRecordMissedDays = currentTrainingPlanDay - dayStatsArray.length - 1;
@@ -226,7 +226,7 @@ export function createErrorLog(
 	handlerFunction: HandlerFunction,
 	status: number,
 	message: string,
-	env: Env
+	env: Env,
 ): Promise<void> {
 	const error: ErrorLog = {
 		environment: env.ENVIRONMENT,
@@ -236,6 +236,8 @@ export function createErrorLog(
 		status: status,
 		message: message,
 	};
+
+	console.log(error);
 
 	if (env.ENVIRONMENT !== "dev") {
 		const queuePromise = env.IGNITE_30_LOGGING_QUEUE.send(JSON.stringify(error));

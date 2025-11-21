@@ -17,7 +17,7 @@ export async function getAllRapidRecoveryWeekCardsData(ctx: Context): Promise<Re
 
 	// LOGGING
 	const endpoint = `/get-rapid-recovery-weeks-data`;
-	const handlerFunction: HandlerFunction = "getRapidRecoveryWeeksData";
+	const handlerFunction: HandlerFunction = "getAllRapidRecoveryWeekCardsData";
 
 	if (contentType !== JSON_CONTENT_TYPE) {
 		const response = new Response("Bad Request", { status: 400 });

@@ -20,7 +20,6 @@ import { getCompletedAndCancelledTrainingPlans } from "./handlers/getCompletedAn
 import { completeTrainingPlan } from "./handlers/completeTrainingPlan";
 import { updateTrainingPlanStatsStreaks } from "./handlers/updateTrainingPlanStatsStreaks";
 import { badRequest } from "./handlers/badRequest";
-
 import { testHandler } from "./handlers/test";
 
 // *** Rapid Recovery *** //

@@ -1,6 +1,7 @@
 import type { Context } from "hono";
 
 import { TrainingPlans } from "../classes/trainingPlans";
+import { Marketing } from "../classes/Marketing";
 import { parseUserAuthorization, getErrorMessage, passesRateLimiter, createErrorLog } from "../helpers";
 import { JSON_CONTENT_TYPE } from "../helpers/constants";
 import type { ProgramId, HandlerFunction } from "../types";
@@ -48,17 +49,27 @@ export async function createTrainingPlanStatsRecord(ctx: Context): Promise<Respo
 	}
 
 	const body: StartTrainingPlanReqBody = await req.json();
-	const { startDate, endDate } = body;
+	const { startDate, endDate, emailAddress } = body;
 
-	if (!startDate || !endDate) {
+	if (!startDate || !endDate || !emailAddress) {
 		const response = new Response("Bad Request", { status: 400 });
 		return response;
 	}
 
 	const trainingPlans = new TrainingPlans(env);
+	const marketing = new Marketing(env);
 
 	try {
 		const recordId = await trainingPlans.createTrainingPlanStatsRecord(userId, paramProgramId, body);
+
+		const tagName = "ignite30ProductInProgress";
+		const addConvertKitTagRes = await marketing.addSubscripberToConvertKitWithTag(emailAddress, tagName);
+
+		const addConvertKitTagStatus = addConvertKitTagRes.status;
+		if (addConvertKitTagStatus !== 200) {
+			const message = await addConvertKitTagRes.text();
+			throw new Error(message);
+		}
 
 		const reqBody = {
 			recordId: recordId,

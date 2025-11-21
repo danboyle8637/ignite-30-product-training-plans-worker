@@ -3,6 +3,7 @@ import type { ProgramId, Membership } from "./index";
 export interface StartTrainingPlanReqBody {
 	startDate: string;
 	endDate: string;
+	emailAddress: string;
 }
 
 export interface ToggleDayChallengeReqBody {

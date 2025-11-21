@@ -18,12 +18,6 @@ export class RapidRecovery {
 		});
 	}
 
-	// async getRapidRecoveryWeek() {
-	// 	return this.sanityProgramsConfig.fetch(getRapidRecoveryWeekQuery, {
-	// 		programId: this.programId,
-	// 	});
-	// }
-
 	async getAllRapidRecoveryWeekCards() {
 		return this.sanityProgramsConfig.fetch(getAllRapidRecoveryWeekCardsQuery);
 	}

@@ -1,4 +1,4 @@
-export type ProgramId = "ignite_30_beginner" | "ignite_30_advanced";
+export type ProgramId = "ignite_30_beginner" | "ignite_30_advanced" | "ignite_30_reset";
 
 export type ProgramTag =
 	| "trial"
@@ -207,6 +207,7 @@ export type HandlerFunction =
 	| "updateTrainingPlanMissedDaysStreak"
 	| "getTrainingPlanReportCardData"
 	| "getRapidRecoveryWeeksData"
+	| "getAllRapidRecoveryWeekCardsData"
 	| "badRequest";
 
 export interface TrainingPlanCardData {

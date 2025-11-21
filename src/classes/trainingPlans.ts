@@ -30,7 +30,6 @@ import type {
 export class TrainingPlans extends Queries {
 	private sanityConfig: SanityClient;
 	private sql: NeonQueryFunction<any, any>;
-	private testConfig: (sanityProject: "fww" | "products") => SanityClient;
 
 	constructor(env: Env) {
 		const activeUser = env.ENVIRONMENT === "dev" || env.ENVIRONMENT === "staging" ? env.NEON_STAGING_USER : env.NEON_PROD_USER;
@@ -50,19 +49,6 @@ export class TrainingPlans extends Queries {
 			apiVersion: "2024-01-14",
 			token: env.SANITY_TOKEN,
 		});
-
-		this.testConfig = (sanityProject) => {
-			const projectId = sanityProject === "fww" ? env.SANITY_PROJECT_ID : env.SANITY_PROGRAMS_PROJECT_ID;
-			const dataset = sanityProject === "fww" ? env.SANITY_DATASET : env.SANITY_PROGRAMS_DATASET;
-			const token = sanityProject === "fww" ? env.SANITY_TOKEN : env.SANITY_PROGRAMS_TOKEN;
-			return createClient({
-				projectId: projectId,
-				dataset: dataset,
-				useCdn: true,
-				apiVersion: "2024-01-14",
-				token: token,
-			});
-		};
 	}
 
 	async createTrainingPlanStatsRecord(userId: string, programId: ProgramId, data: CreateTrainigPlanStatsRecordData): Promise<number> {
@@ -86,7 +72,7 @@ export class TrainingPlans extends Queries {
 			currentTrainingPlanDay,
 			dayDate,
 			goalType,
-			currentDaysMissed
+			currentDaysMissed,
 		);
 	}
 
@@ -96,7 +82,7 @@ export class TrainingPlans extends Queries {
 		statsRecordId: number,
 		primaryGoalStreak: number,
 		completeDayStreak: number,
-		fitQuickieStreak: number
+		fitQuickieStreak: number,
 	) {
 		return super.updateTrainingPlanStatsStreaksQuery(
 			this.sql,
@@ -105,7 +91,7 @@ export class TrainingPlans extends Queries {
 			statsRecordId,
 			primaryGoalStreak,
 			completeDayStreak,
-			fitQuickieStreak
+			fitQuickieStreak,
 		);
 	}
 
@@ -114,7 +100,7 @@ export class TrainingPlans extends Queries {
 		programId: ProgramId,
 		trainingPlanStatsRecordId: number,
 		numberOfMissedDays: number,
-		missedDayRecordsToCreatesArray: TrainingPlanMissedDaysRecord[]
+		missedDayRecordsToCreatesArray: TrainingPlanMissedDaysRecord[],
 	) {
 		return super.updateTrainingPlanDayStatsAfterMissedDaysQuery(
 			this.sql,
@@ -122,7 +108,7 @@ export class TrainingPlans extends Queries {
 			programId,
 			trainingPlanStatsRecordId,
 			numberOfMissedDays,
-			missedDayRecordsToCreatesArray
+			missedDayRecordsToCreatesArray,
 		);
 	}
 
@@ -130,7 +116,7 @@ export class TrainingPlans extends Queries {
 		userId: string,
 		programId: ProgramId,
 		trainingPlanStatsRecordId: number,
-		numberOfMissedDays: number
+		numberOfMissedDays: number,
 	) {
 		return super.updateTrainingPlanStatsDaysMissedStreakQuery(this.sql, userId, programId, trainingPlanStatsRecordId, numberOfMissedDays);
 	}
@@ -140,7 +126,7 @@ export class TrainingPlans extends Queries {
 			this.sql,
 			userId,
 			programId,
-			trainingPlanStatsRecordId
+			trainingPlanStatsRecordId,
 		);
 		return queryResult;
 	}
@@ -150,7 +136,7 @@ export class TrainingPlans extends Queries {
 			this.sql,
 			userId,
 			programId,
-			trainingPlanStatsRecordId
+			trainingPlanStatsRecordId,
 		);
 
 		if (queryResult.length === 0) {
@@ -176,7 +162,7 @@ export class TrainingPlans extends Queries {
 		const queryResult: TrainingPlanDayStatsQueryResult[] = await super.getTrainingPlanDayStatsQuery(
 			this.sql,
 			userId,
-			trainingPlanStatsRecordId
+			trainingPlanStatsRecordId,
 		);
 
 		if (queryResult.length === 0) {
@@ -204,7 +190,7 @@ export class TrainingPlans extends Queries {
 	async getCompletedAndCancelledTrainingPlans(userId: string) {
 		const queryResult: GetCompletedAndCancelledTrainingPlansResBody[] = await super.getCompletedAndCancelledTrainingPlansQuery(
 			this.sql,
-			userId
+			userId,
 		);
 		return queryResult;
 	}
@@ -214,7 +200,7 @@ export class TrainingPlans extends Queries {
 			this.sql,
 			userId,
 			trainingPlanStatsRecordId,
-			programId
+			programId,
 		);
 
 		if (queryResult.length === 0) {
@@ -235,7 +221,7 @@ export class TrainingPlans extends Queries {
 			userId,
 			programId,
 			trainingPlanStatsId,
-			totalPossiblePoints
+			totalPossiblePoints,
 		);
 
 		if (queryResult.length === 0) {
@@ -257,7 +243,7 @@ export class TrainingPlans extends Queries {
 			this.sql,
 			userId,
 			programId,
-			trainingPlanStatsId
+			trainingPlanStatsId,
 		);
 
 		if (queryResult.length === 0 || queryResult.length > 1) {
@@ -274,14 +260,14 @@ export class TrainingPlans extends Queries {
 		programId: ProgramId,
 		startDate: string,
 		trainingPlanStatsRecordId: number,
-		totalDaysInCurrentMonth: number
+		totalDaysInCurrentMonth: number,
 	): Promise<NeonQueryPromise<any, any>> {
 		const trainingPlanLength = 30;
 
 		const queryResult: TrainingPlanDayStatsQueryResult[] = await super.getTrainingPlanDayStatsQuery(
 			this.sql,
 			userId,
-			trainingPlanStatsRecordId
+			trainingPlanStatsRecordId,
 		);
 
 		const trainingPlanResultsArray = queryResult.map((r): TrainingPlanDayStatsRecord => {
@@ -311,7 +297,7 @@ export class TrainingPlans extends Queries {
 				lastTrainingPlanDayStatsDayRecorded,
 				lastTrainingPlanDayStatsDayDateRecorded,
 				totalDaysInCurrentMonth,
-				startDate
+				startDate,
 			);
 
 			const { missedDaysQueryArray } = missedDaysArrays;
@@ -322,7 +308,7 @@ export class TrainingPlans extends Queries {
 				programId,
 				trainingPlanStatsRecordId,
 				daysMissed.missedDays,
-				missedDaysQueryArray
+				missedDaysQueryArray,
 			);
 		}
 
