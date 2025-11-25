@@ -208,6 +208,8 @@ export type HandlerFunction =
 	| "getTrainingPlanReportCardData"
 	| "getRapidRecoveryWeeksData"
 	| "getAllRapidRecoveryWeekCardsData"
+	| "getPserWeekCards"
+	| "getPserWeekRecipes"
 	| "badRequest";
 
 export interface TrainingPlanCardData {

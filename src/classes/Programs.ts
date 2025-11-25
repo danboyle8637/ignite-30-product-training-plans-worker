@@ -1,14 +1,16 @@
 import { createClient } from "@sanity/client";
 import type { SanityClient } from "@sanity/client";
+import type { ProductId } from "../types/sanity";
 
 import { getAllRapidRecoveryWeekCardsQuery, getRapidRecoveryWeekSessionDataQuery } from "../db/rapidRecovery";
+import { getPserWeekCardsQuery, getPserWeekRecipesDataQuery } from "../db/pser";
 
-export class RapidRecovery {
+export class Programs {
 	private sanityProgramsConfig: SanityClient;
-	private programId: string;
+	private programId: ProductId;
 
-	constructor(env: Env) {
-		this.programId = "rapid_recovery";
+	constructor(env: Env, programId: ProductId) {
+		this.programId = programId;
 		this.sanityProgramsConfig = createClient({
 			projectId: env.SANITY_PROGRAMS_PROJECT_ID,
 			dataset: env.SANITY_PROGRAMS_DATASET,
@@ -24,6 +26,17 @@ export class RapidRecovery {
 
 	async getRapidRecoveryWeekSessionData(week: number) {
 		return this.sanityProgramsConfig.fetch(getRapidRecoveryWeekSessionDataQuery, {
+			programId: this.programId,
+			order: week,
+		});
+	}
+
+	async getPserWeekCards() {
+		return this.sanityProgramsConfig.fetch(getPserWeekCardsQuery);
+	}
+
+	async getPserWeekRecipesData(week: number) {
+		return this.sanityProgramsConfig.fetch(getPserWeekRecipesDataQuery, {
 			programId: this.programId,
 			order: week,
 		});

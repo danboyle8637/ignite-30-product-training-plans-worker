@@ -1,5 +1,6 @@
 import type { HandlerFunction, DailyGoalType, TrainingPlanDayStatsRecord, ProgramId, LeaderboardType, TrainingPlanStatus } from "../types";
 import type { RapidRecoveryWeekCard, RapidRecoveryWeekData } from "../types/rapidRecovery";
+import type { PserWeekCard, PserRecipe } from "../types/pser";
 
 export interface ErrorLog {
 	environment: string;
@@ -121,4 +122,12 @@ export interface RapidRecoveryWeekCardsResBody {
 
 export interface RapidRecoveryWeekSessionResBody {
 	weekData: RapidRecoveryWeekData;
+}
+
+export interface PserWeekCardsResBody {
+	cards: PserWeekCard[];
+}
+
+export interface PserWeekRecipesResBody {
+	weekData: PserRecipe[];
 }

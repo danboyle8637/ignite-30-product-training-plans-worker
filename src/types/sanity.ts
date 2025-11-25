@@ -1,8 +1,9 @@
 import type { RapidRecoveryWeekCard, RapidRecoveryWeekData } from "./rapidRecovery";
+import type { PserWeekCard, PserRecipe } from "./pser";
 
-type ExerciseType = "strength" | "stretch" | "mobility" | "trigger_ball" | "running";
+export type ProductId = "rapid_recovery" | "pser";
 
-type VideoHost = "youtube" | "cloudflare";
+export type RecipeType = "breakfast" | "lunch" | "dinner" | "dessert" | "snake" | "shake";
 
 type VideoType =
 	| "workout"
@@ -14,39 +15,7 @@ type VideoType =
 	| "recipe_directions"
 	| "coaching";
 
-export interface Exercise {
-	id: string;
-	type: ExerciseType;
-	title: string;
-	description: string;
-	cardImageUrl: string;
-	cardAltTag: string;
-	cardTitleTag: string;
-	cardImageWidth: number;
-	cardImageHeight: number;
-	breakdown: [];
-}
-
-export interface VideoWorkoutSession {
-	id: string;
-	videoType: VideoType;
-	videoHost: VideoHost;
-	videoTitle: string;
-	videoId: string;
-	workoutDetails: [];
-}
-
-export interface CardData {
-	id: string;
-	slug: string;
-	cardImageUrl: string;
-	cardImageAltTag: string;
-	cardImageTitleTag: string;
-	cardTitle: string;
-	cardDescription: string;
-}
-
-// Rapid Recovery
+// ******* Rapid Recovery ******* //
 
 export interface GetAllRapidRecoveryWeekCardsData {
 	rapidRecoveryWeekCardsData: RapidRecoveryWeekCard[];
@@ -54,6 +23,16 @@ export interface GetAllRapidRecoveryWeekCardsData {
 
 export interface GetRapidRecoveryWeekSessionData {
 	rapidRecoveryWeekData: RapidRecoveryWeekData;
+}
+
+// ******* Plan Smart Eat Real ******* //
+
+export interface GetPserWeekCardsData {
+	pserWeekCardsData: PserWeekCard[];
+}
+
+export interface GetPserWeekRecipesData {
+	pserWeekRecipesData: { recipes: PserRecipe[] };
 }
 
 export interface SanityImage {

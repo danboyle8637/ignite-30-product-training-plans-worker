@@ -26,12 +26,16 @@ import { testHandler } from "./handlers/test";
 import { getAllRapidRecoveryWeekCardsData } from "./handlers/rapidRecovery/getAllRapidRecoveryWeekCards";
 import { getRapidRecoveryWeekSessionData } from "./handlers/rapidRecovery/getRapidRecoveryWeekSessionData";
 
+// *** Plan Smart Eat Real *** //
+import { getPserWeekCards } from "./handlers/planSmartEatReal/getPserWeekCards";
+import { getPserWeekRecipes } from "./handlers/planSmartEatReal/getPserWeekRecipes";
+
 // *** Helpers *** //
 import { corsConfig } from "./helpers/honoConfig";
 
 const app = new Hono();
 const trainingPlan = new Hono<{ Bindings: Env }>();
-const rapidRecovery = new Hono<{ Bindings: Env }>();
+const programs = new Hono<{ Bindings: Env }>();
 const admin = new Hono<{ Bindings: Env }>();
 
 app.use("/*", corsConfig);
@@ -72,20 +76,24 @@ trainingPlan.patch("/handle-missed-days", handleMissedDays);
 
 trainingPlan.patch(
 	"/update-training-plan-missed-day-streak/:program_id/:stats_record_id/:number_of_missed_days",
-	updateTrainingPlanMissedDaysStreak
+	updateTrainingPlanMissedDaysStreak,
 );
 
 trainingPlan.patch("/update-training-plan-stats-streaks/:program_id/:stats_record_id", updateTrainingPlanStatsStreaks);
 
-// RAPID RECOVERY
-rapidRecovery.get("/get-rapid-recovery-week-cards", getAllRapidRecoveryWeekCardsData);
+// *** Programs *** //
+programs.get("/get-rapid-recovery-week-cards", getAllRapidRecoveryWeekCardsData);
 
-rapidRecovery.get("/get-rapid-recovery-week-session-data/:week_number", getRapidRecoveryWeekSessionData);
+programs.get("/get-rapid-recovery-week-session-data/:week_number", getRapidRecoveryWeekSessionData);
+
+programs.get("/get-pser-week-cards-data", getPserWeekCards);
+
+programs.get("/get-pser-week-recipes-data/:week_number", getPserWeekRecipes);
 
 app.notFound(badRequest);
 
 app.route("/api/training-plan", trainingPlan);
-app.route("/api/rapid-recovery", rapidRecovery);
+app.route("/api/programs", programs);
 app.route("/admin", admin);
 
 export default {
