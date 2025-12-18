@@ -3,7 +3,7 @@ import type { SanityClient } from "@sanity/client";
 import type { ProductId } from "../types/sanity";
 
 import { getAllRapidRecoveryWeekCardsQuery, getRapidRecoveryWeekSessionDataQuery } from "../db/rapidRecovery";
-import { getPserWeekCardsQuery, getPserWeekRecipesDataQuery } from "../db/pser";
+import { getPserWeekCardsQuery, getPserWeekRecipesDataQuery, getPserCoachingClassesQuery } from "../db/pser";
 
 export class Programs {
 	private sanityProgramsConfig: SanityClient;
@@ -39,6 +39,13 @@ export class Programs {
 		return this.sanityProgramsConfig.fetch(getPserWeekRecipesDataQuery, {
 			programId: this.programId,
 			order: week,
+		});
+	}
+
+	async getPserCoachingClassesData(order: number) {
+		return this.sanityProgramsConfig.fetch(getPserCoachingClassesQuery, {
+			programId: this.programId,
+			order: order,
 		});
 	}
 }

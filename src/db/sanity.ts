@@ -46,3 +46,43 @@ export const dailyGoalsDetailsQuery = `
     }
   }
 `;
+
+export const getWorkoutListQuery = `
+	{
+    "workoutListData": *[_type == $programId] | order(trainingPlanDay asc) {
+  		"trainingPlanDay": trainingPlanDay,
+      defined(primaryGoal.videoEmbed.videoId) => {
+        "primaryGoal": {
+          "videoId": primaryGoal.videoEmbed.videoId,
+          "goalDetails": primaryGoal.goalDetails,
+          "title": primaryGoal.title,
+          "isFoundationWorkout": primaryGoal.isFoundationWorkout,
+          "isDrillWorkout": primaryGoal.isDrillWorkout,
+        }
+      },
+      defined(busyGoal.videoEmbed.videoId) => {
+        "busyGoal": {
+          "title": busyGoal.title,
+          "isFoundationWorkout": busyGoal.isFoundationWorkout,
+          "isDrillWorkout": busyGoal.isDrillWorkout,
+          "goalDetails": busyGoal.goalDetails,
+          "videoId": busyGoal.videoEmbed.videoId
+        }
+      },
+      defined(motivationGoal.videoEmbed.videoId) => {
+        "motivationGoal": {
+          "title": motivationGoal.title,
+          "goalDetails": motivationGoal.goalDetails,
+          "videoId": motivationGoal.videoEmbed.videoId
+        }
+      },
+      defined(coachingGoal.videoEmbed.videoId) => {
+        "coachingGoal": {
+          "title": coachingGoal.title,
+          "goalDetails": coachingGoal.goalDetails,
+          "videoId": coachingGoal.videoEmbed.videoId
+        }
+      }
+    }
+  }
+`;

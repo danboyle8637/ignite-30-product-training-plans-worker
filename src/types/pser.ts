@@ -28,3 +28,18 @@ export interface PserRecipe {
 	ingredients: [];
 	recipeNotes: [];
 }
+
+export interface CoachingClass {
+	id: string;
+	order: number;
+	title: string;
+	cardDescription: string;
+	cardImageUrl: string;
+	cardImageAltTag: string;
+	cardImageTitleTag: string;
+	coachingVideoCoverImageUrl: string;
+	videoHost: string;
+	videoType: string;
+	coachingVideoId: string;
+	coachingClassNotes: [];
+}

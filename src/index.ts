@@ -6,7 +6,7 @@ import { toggleDayGoal } from "./handlers/toggleDayGoal";
 import { getTrainingPlanStats } from "./handlers/getTrainingPlanStats";
 import { getTrainingnPlanDayStats } from "./handlers/getTrainingPlanDayStats";
 // import { getLastDayCompleted } from "./handlers/getLastDayCompleted";
-import { getTrainingPlanCompletedDaysArray } from "./handlers/getTrainingPlanCompletedDaysArray";
+// import { getTrainingPlanCompletedDaysArray } from "./handlers/getTrainingPlanCompletedDaysArray";
 import { handleMissedDays } from "./handlers/handleMissedDays";
 import { updateTrainingPlanMissedDaysStreak } from "./handlers/updateTrainingPlanMissedDaysStreak";
 import { getTrainingPlanDetails } from "./handlers/getTrainingPlanDetails";
@@ -15,7 +15,8 @@ import { cancelTrainingPlan } from "./handlers/cancelTrainingPlan";
 import { getTrainingPlanReportCard } from "./handlers/getTrainingPlanReportCard";
 import { getTrainingPlanReportCardData } from "./handlers/getTrainingPlanReportCardData";
 import { getTrainingPlanLeaderboardsData } from "./handlers/getTrainingPlanLeaderboardData";
-import { getTrainingPlanStartDate } from "./handlers/getTrainingPlanStartDate";
+import { getTrainingPlanWorkoutList } from "./handlers/getTrainingPlanWorkoutList";
+// import { getTrainingPlanStartDate } from "./handlers/getTrainingPlanStartDate";
 import { getCompletedAndCancelledTrainingPlans } from "./handlers/getCompletedAndCancelledTrainingPlans";
 import { completeTrainingPlan } from "./handlers/completeTrainingPlan";
 import { updateTrainingPlanStatsStreaks } from "./handlers/updateTrainingPlanStatsStreaks";
@@ -29,6 +30,7 @@ import { getRapidRecoveryWeekSessionData } from "./handlers/rapidRecovery/getRap
 // *** Plan Smart Eat Real *** //
 import { getPserWeekCards } from "./handlers/planSmartEatReal/getPserWeekCards";
 import { getPserWeekRecipes } from "./handlers/planSmartEatReal/getPserWeekRecipes";
+import { getPserCoachingClasses } from "./handlers/planSmartEatReal/getPserCoachingClasses";
 
 // *** Helpers *** //
 import { corsConfig } from "./helpers/honoConfig";
@@ -66,6 +68,8 @@ trainingPlan.get("/get-training-plan-report-card-data/:program_id/:stats_record_
 
 trainingPlan.get("/get-training-plan-leaderboards/:program_id/:status/:start_date?", getTrainingPlanLeaderboardsData);
 
+trainingPlan.get("/get-training-plan-workout-list/:program_id", getTrainingPlanWorkoutList);
+
 // trainingPlan.get("/get-training-plan-start-date/:program_id/:stats_record_id", getTrainingPlanStartDate);
 
 trainingPlan.patch("/cancel-training-plan/:program_id/:stats_record_id", cancelTrainingPlan);
@@ -89,6 +93,8 @@ programs.get("/get-rapid-recovery-week-session-data/:week_number", getRapidRecov
 programs.get("/get-pser-week-cards-data", getPserWeekCards);
 
 programs.get("/get-pser-week-recipes-data/:week_number", getPserWeekRecipes);
+
+programs.get("/get-pser-coaching-classes-data/:order", getPserCoachingClasses);
 
 app.notFound(badRequest);
 

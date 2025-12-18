@@ -1,6 +1,6 @@
 import type { HandlerFunction, DailyGoalType, TrainingPlanDayStatsRecord, ProgramId, LeaderboardType, TrainingPlanStatus } from "../types";
 import type { RapidRecoveryWeekCard, RapidRecoveryWeekData } from "../types/rapidRecovery";
-import type { PserWeekCard, PserRecipe } from "../types/pser";
+import type { PserWeekCard, PserRecipe, CoachingClass } from "../types/pser";
 
 export interface ErrorLog {
 	environment: string;
@@ -130,4 +130,38 @@ export interface PserWeekCardsResBody {
 
 export interface PserWeekRecipesResBody {
 	weekData: PserRecipe[];
+}
+
+export interface PserCoachingClassesResBody {
+	classes: CoachingClass[];
+}
+
+export interface GetWorkoutListResBody {
+	workoutListData: {
+		trainingPlanDay: number;
+		primaryGoal?: {
+			title: string | null;
+			isFoudationWorkout: boolean;
+			isDrillWorkout: boolean;
+			goalDetails: [] | null;
+			videoId: string;
+		};
+		busyGoal?: {
+			title: string | null;
+			isFoudationWorkout: boolean;
+			isDrillWorkout: boolean;
+			goalDetails: [] | null;
+			videoId: string;
+		};
+		motivationGoal?: {
+			title: string | null;
+			goalDetails: [] | null;
+			videoId: string;
+		};
+		coachingGoal?: {
+			title: string | null;
+			goalDetails: [] | null;
+			videoId: string;
+		};
+	};
 }

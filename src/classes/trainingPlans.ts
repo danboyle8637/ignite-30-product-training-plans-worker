@@ -4,7 +4,7 @@ import type { NeonQueryFunction, NeonQueryPromise, FullQueryResults } from "@neo
 import type { SanityClient } from "@sanity/client";
 
 import { Queries } from "../db/queries";
-import { programOverviewQuery, dailyGoalsDetailsQuery } from "../db/sanity";
+import { programOverviewQuery, dailyGoalsDetailsQuery, getWorkoutListQuery } from "../db/sanity";
 import { getLastDayCompleted, calculateDaysMissed, buildMissedDaysStatsArray } from "../helpers";
 import type {
 	ProgramId,
@@ -334,11 +334,17 @@ export class TrainingPlans extends Queries {
 		});
 	}
 
+	async getWorkoutListData(programId: ProgramId) {
+		return this.sanityConfig.fetch(getWorkoutListQuery, {
+			programId: programId,
+		});
+	}
+
 	// *********** ADMIN QUERY TO CREATE AND BUILD TEST DATA *********** //
 
-	async createTestData() {
-		return super.createTestDataQuery(this.sql);
-	}
+	// async createTestData() {
+	// 	return super.createTestDataQuery(this.sql);
+	// }
 
 	// async createTestLeaderboardData() {
 	// 	return super.createTestLeaderboardQuery(this.sql);

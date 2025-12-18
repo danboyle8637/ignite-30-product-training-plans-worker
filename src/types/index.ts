@@ -206,10 +206,12 @@ export type HandlerFunction =
 	| "completeTrainingPlan"
 	| "updateTrainingPlanMissedDaysStreak"
 	| "getTrainingPlanReportCardData"
+	| "getTrainingPlanWorkoutList"
 	| "getRapidRecoveryWeeksData"
 	| "getAllRapidRecoveryWeekCardsData"
 	| "getPserWeekCards"
 	| "getPserWeekRecipes"
+	| "getPserCoachingClasses"
 	| "badRequest";
 
 export interface TrainingPlanCardData {

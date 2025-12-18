@@ -1,5 +1,5 @@
 import type { RapidRecoveryWeekCard, RapidRecoveryWeekData } from "./rapidRecovery";
-import type { PserWeekCard, PserRecipe } from "./pser";
+import type { PserWeekCard, PserRecipe, CoachingClass } from "./pser";
 
 export type ProductId = "rapid_recovery" | "pser";
 
@@ -38,4 +38,8 @@ export interface GetPserWeekRecipesData {
 export interface SanityImage {
 	_ref: string;
 	_type: string;
+}
+
+export interface GetPserCoachingClassesData {
+	pserCoachingClassesData: { videos: CoachingClass[] };
 }

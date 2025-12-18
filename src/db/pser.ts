@@ -75,3 +75,26 @@ export const getPserWeekRecipesDataQuery = `
     }
   }
 `;
+
+export const getPserCoachingClassesQuery = `
+	{
+    "pserCoachingClassesData": *[
+      _type == "collection" &&
+      program -> programId == $programId && order == $order][0] {
+      "videos": videoCollection[] | order(order asc)-> {
+        "id": _id,
+        "title": video.title,
+        "cardDescription": shortDescription,
+        "videoHost": video.videoHost,
+        "videoType": video.videoType,
+        "order": video.order,
+        "coachingVideoId": video.videoId,
+        "cardImageUrl": videoImage.mainImage.asset->url,
+        "cardImageAltTag": videoImage.imageAltTag,
+        "cardImageTitleTag": videoImage.imageTitleTag,
+        "coachingVideoCoverImageUrl": video.coverImage.asset->url,
+        "coachingClassNotes": video.videoDiscussion,
+      }
+    }
+  }
+`;
