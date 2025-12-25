@@ -1,4 +1,4 @@
-export type ProgramId = "ignite_30_beginner" | "ignite_30_advanced" | "ignite_30_reset";
+export type ProgramId = "ignite_30_beginner" | "ignite_30_advanced" | "ignite_7_reset";
 
 export type ProgramTag =
 	| "trial"
