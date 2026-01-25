@@ -21,6 +21,8 @@ export const dailyGoalsDetailsQuery = `
         "isDrillWorkout": primaryGoal.isDrillWorkout,
         "goalDetails": primaryGoal.goalDetails,
         "videoId": primaryGoal.videoEmbed.videoId,
+        "overviewTimestamp": primaryGoal.videoEmbed.overviewTimestamp,
+        "workoutTimestamp": primaryGoal.videoEmbed.workoutTimestamp,
       },
       "busyGoal": {
         "goalLink": busyGoal.goalLink,
@@ -30,6 +32,8 @@ export const dailyGoalsDetailsQuery = `
         "isDrillWorkout": busyGoal.isDrillWorkout,
         "goalDetails": busyGoal.goalDetails,
         "videoId": busyGoal.videoEmbed.videoId,
+        "overviewTimestamp": primaryGoal.videoEmbed.overviewTimestamp,
+        "workoutTimestamp": primaryGoal.videoEmbed.workoutTimestamp,
       },
       "motivationGoal": {
         "goalLink": motivationGoal.goalLink,

@@ -35,11 +35,11 @@ export interface GetPserWeekRecipesData {
 	pserWeekRecipesData: { recipes: PserRecipe[] };
 }
 
+export interface GetPserCoachingClassesData {
+	pserCoachingClassesData: { videos: CoachingClass[] };
+}
+
 export interface SanityImage {
 	_ref: string;
 	_type: string;
-}
-
-export interface GetPserCoachingClassesData {
-	pserCoachingClassesData: { videos: CoachingClass[] };
 }

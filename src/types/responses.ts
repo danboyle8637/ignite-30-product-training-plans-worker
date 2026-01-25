@@ -48,6 +48,8 @@ export interface GetTrainingPlanDayGoalsDetailsResBody {
 			isFoudationWorkout: boolean;
 			isDrillWorkout: boolean;
 			goalDetails: [] | null;
+			overviewTimestamp: string | null;
+			workoutTimestamp: string | null;
 		};
 		busyGoal: {
 			goalLink: string | null;
@@ -56,6 +58,8 @@ export interface GetTrainingPlanDayGoalsDetailsResBody {
 			isFoudationWorkout: boolean;
 			isDrillWorkout: boolean;
 			goalDetails: [] | null;
+			overviewTimestamp: number | null;
+			workoutTimestamp: number | null;
 		};
 		motivationGoal: {
 			goalLink: string | null;
@@ -76,6 +80,7 @@ export interface HandleMissedDaysResBody {
 
 export interface ReportCardUserDataResBody {
 	userId: string;
+	attemptNumber: number;
 	totalPoints: number;
 	bonusPoints: number;
 	earnedPoints: number;

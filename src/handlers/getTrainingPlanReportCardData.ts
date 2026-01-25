@@ -71,6 +71,7 @@ export async function getTrainingPlanReportCardData(ctx: Context): Promise<Respo
 
 		const reportCardDataResBody: ReportCardUserDataResBody = {
 			userId: reportCardData.user_id,
+			attemptNumber: reportCardData.attempt_number,
 			totalPoints: reportCardData.total_points,
 			bonusPoints: reportCardData.bonus_points,
 			earnedPoints: reportCardData.earned_points,

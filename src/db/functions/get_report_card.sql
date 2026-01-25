@@ -6,6 +6,7 @@ CREATE OR REPLACE FUNCTION training_plans.get_training_plan_report_card_final_po
 )
 RETURNS TABLE (
     user_id VARCHAR(255),
+    attempt_number SMALLINT,
     total_points SMALLINT,
     bonus_points SMALLINT,
     earned_points SMALLINT,
@@ -20,6 +21,7 @@ BEGIN
         WITH total_and_bonus_points AS (
             SELECT
                 tps.user_id,
+                tps.attempt_number,
                 tps.total_points,
                 tps.longest_primary_goal_streak,
                 tps.longest_complete_day_streak,
@@ -45,6 +47,7 @@ BEGIN
         )
         SELECT
             points.user_id,
+            points.attempt_number,
             points.total_points,
             points.bonus_points,
             CAST((points.total_points - points.bonus_points) AS SMALLINT) AS earned_points,

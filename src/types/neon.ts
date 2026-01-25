@@ -64,6 +64,7 @@ export interface GetCompletedAndCancelledTrainingPlansResBody {
 
 export interface ReportCardUserDataQueryResBody {
 	user_id: string;
+	attempt_number: number;
 	total_points: number;
 	bonus_points: number;
 	earned_points: number;
