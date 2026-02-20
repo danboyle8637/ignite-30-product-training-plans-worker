@@ -43,3 +43,27 @@ export interface SanityImage {
 	_ref: string;
 	_type: string;
 }
+
+// ******* Workout List ******* //
+
+export interface WorkoutListGoalData {
+	title: string | null;
+	isFoudationWorkout: boolean;
+	isDrillWorkout: boolean;
+	goalDetails: [] | null;
+	videoId: string;
+	overviewTimestamp: string | null;
+	workoutTimestamp: string | null;
+}
+
+export interface WorkoutListData {
+	trainingPlanDay: number;
+	primaryGoal?: WorkoutListGoalData;
+	busyGoal?: WorkoutListGoalData;
+	motivationGoal?: WorkoutListGoalData;
+	coachingGoal?: WorkoutListGoalData;
+}
+
+export interface SanityWorkoutListData {
+	workoutListData: WorkoutListData[];
+}

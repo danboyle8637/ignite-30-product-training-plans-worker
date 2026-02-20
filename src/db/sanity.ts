@@ -62,6 +62,8 @@ export const getWorkoutListQuery = `
           "title": primaryGoal.title,
           "isFoundationWorkout": primaryGoal.isFoundationWorkout,
           "isDrillWorkout": primaryGoal.isDrillWorkout,
+          "overviewTimestamp": primaryGoal.videoEmbed.overviewTimestamp,
+          "workoutTimestamp": primaryGoal.videoEmbed.workoutTimestamp,
         }
       },
       defined(busyGoal.videoEmbed.videoId) => {
@@ -70,7 +72,9 @@ export const getWorkoutListQuery = `
           "isFoundationWorkout": busyGoal.isFoundationWorkout,
           "isDrillWorkout": busyGoal.isDrillWorkout,
           "goalDetails": busyGoal.goalDetails,
-          "videoId": busyGoal.videoEmbed.videoId
+          "videoId": busyGoal.videoEmbed.videoId,
+          "overviewTimestamp": primaryGoal.videoEmbed.overviewTimestamp,
+          "workoutTimestamp": primaryGoal.videoEmbed.workoutTimestamp,
         }
       },
       defined(motivationGoal.videoEmbed.videoId) => {

@@ -3,7 +3,8 @@ import type { Context } from "hono";
 import { TrainingPlans } from "../classes/trainingPlans";
 import { parseUserAuthorization, getErrorMessage, passesRateLimiter, createErrorLog } from "../helpers";
 import { JSON_CONTENT_TYPE } from "../helpers/constants";
-import type { ProgramId, HandlerFunction } from "../types";
+import type { ProgramId, HandlerFunction, WorkoutListDayGoalDetails } from "../types";
+import type { SanityWorkoutListData } from "../types/sanity";
 import type { GetWorkoutListResBody } from "../types/responses";
 
 export async function getTrainingPlanWorkoutList(ctx: Context): Promise<Response> {
@@ -50,8 +51,23 @@ export async function getTrainingPlanWorkoutList(ctx: Context): Promise<Response
 	const trainingPlans = new TrainingPlans(env);
 
 	try {
-		const workoutListsData: GetWorkoutListResBody = await trainingPlans.getWorkoutListData(paramProgramId);
-		const response = new Response(JSON.stringify(workoutListsData), { status: 200 });
+		const workoutListsData: SanityWorkoutListData = await trainingPlans.getWorkoutListData(paramProgramId);
+
+		const dayGoalDetails: WorkoutListDayGoalDetails[] = workoutListsData.workoutListData.map((d) => {
+			return {
+				trainingPlanDay: d.trainingPlanDay,
+				primaryGoal: d["primaryGoal"] || null,
+				busyGoal: d["busyGoal"] || null,
+				motivationGoal: d["motivationGoal"] || null,
+				coachingGoal: d["coachingGoal"] || null,
+			};
+		});
+
+		const reqBody: GetWorkoutListResBody = {
+			workoutListData: dayGoalDetails,
+		};
+
+		const response = new Response(JSON.stringify(reqBody), { status: 200 });
 		return response;
 	} catch (error) {
 		const message = getErrorMessage(error);

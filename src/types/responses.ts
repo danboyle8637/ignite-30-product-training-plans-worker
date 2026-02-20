@@ -1,4 +1,12 @@
-import type { HandlerFunction, DailyGoalType, TrainingPlanDayStatsRecord, ProgramId, LeaderboardType, TrainingPlanStatus } from "../types";
+import type {
+	HandlerFunction,
+	DailyGoalType,
+	TrainingPlanDayStatsRecord,
+	ProgramId,
+	LeaderboardType,
+	TrainingPlanStatus,
+	WorkoutListDayGoalDetails,
+} from "../types";
 import type { RapidRecoveryWeekCard, RapidRecoveryWeekData } from "../types/rapidRecovery";
 import type { PserWeekCard, PserRecipe, CoachingClass } from "../types/pser";
 
@@ -142,31 +150,5 @@ export interface PserCoachingClassesResBody {
 }
 
 export interface GetWorkoutListResBody {
-	workoutListData: {
-		trainingPlanDay: number;
-		primaryGoal?: {
-			title: string | null;
-			isFoudationWorkout: boolean;
-			isDrillWorkout: boolean;
-			goalDetails: [] | null;
-			videoId: string;
-		};
-		busyGoal?: {
-			title: string | null;
-			isFoudationWorkout: boolean;
-			isDrillWorkout: boolean;
-			goalDetails: [] | null;
-			videoId: string;
-		};
-		motivationGoal?: {
-			title: string | null;
-			goalDetails: [] | null;
-			videoId: string;
-		};
-		coachingGoal?: {
-			title: string | null;
-			goalDetails: [] | null;
-			videoId: string;
-		};
-	};
+	workoutListData: WorkoutListDayGoalDetails[];
 }

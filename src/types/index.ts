@@ -233,3 +233,27 @@ export interface TrainingPlanDaysMissed {
 export interface CancelTrainingPlanQueryData {
 	attempt_number: number;
 }
+
+interface PrimaryBusyGoalDetails {
+	title: string | null;
+	isFoudationWorkout: boolean;
+	isDrillWorkout: boolean;
+	goalDetails: [] | null;
+	videoId: string;
+	overviewTimestamp: string | null;
+	workoutTimestamp: string | null;
+}
+
+interface MotivationCoachingGoalDetails {
+	title: string | null;
+	goalDetails: [] | null;
+	videoId: string;
+}
+
+export interface WorkoutListDayGoalDetails {
+	trainingPlanDay: number;
+	primaryGoal: PrimaryBusyGoalDetails | null;
+	busyGoal: PrimaryBusyGoalDetails | null;
+	motivationGoal: MotivationCoachingGoalDetails | null;
+	coachingGoal: MotivationCoachingGoalDetails | null;
+}
