@@ -62,7 +62,7 @@ export async function createTrainingPlanStatsRecord(ctx: Context): Promise<Respo
 	try {
 		const recordId = await trainingPlans.createTrainingPlanStatsRecord(userId, paramProgramId, body);
 
-		const tagName = "ignite30ProductInProgress";
+		const tagName = paramProgramId === "ignite_7_reset" ? "ignite7ResetInProgress" : "ignite30ProductInProgress";
 		const addConvertKitTagRes = await marketing.addSubscripberToConvertKitWithTag(emailAddress, tagName);
 
 		const addConvertKitTagStatus = addConvertKitTagRes.status;
