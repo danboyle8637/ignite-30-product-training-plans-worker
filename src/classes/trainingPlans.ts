@@ -5,7 +5,7 @@ import type { SanityClient } from "@sanity/client";
 
 import { Queries } from "../db/queries";
 import { programOverviewQuery, dailyGoalsDetailsQuery, getWorkoutListQuery } from "../db/sanity";
-import { getLastDayCompleted, calculateDaysMissed, buildMissedDaysStatsArray } from "../helpers";
+import { getLastDayCompleted, calculateDaysMissed, buildMissedDaysStatsArray, getTrainingPlanLength } from "../helpers";
 import type {
 	ProgramId,
 	TrainingPlanDayStatsRecord,
@@ -262,7 +262,7 @@ export class TrainingPlans extends Queries {
 		trainingPlanStatsRecordId: number,
 		totalDaysInCurrentMonth: number,
 	): Promise<NeonQueryPromise<any, any>> {
-		const trainingPlanLength = 30;
+		const trainingPlanLength = getTrainingPlanLength(programId);
 
 		const queryResult: TrainingPlanDayStatsQueryResult[] = await super.getTrainingPlanDayStatsQuery(
 			this.sql,

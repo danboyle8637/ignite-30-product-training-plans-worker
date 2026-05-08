@@ -1,4 +1,5 @@
 import type {
+	ProgramId,
 	PointsType,
 	TrainingPlanDayStatsRecord,
 	TrainingPlanMissedDaysRecord,
@@ -169,21 +170,18 @@ export const getLastDayCompleted = (dayStatsArray: TrainingPlanDayStatsRecord[])
 	};
 };
 
-export const calculateDaysMissed = (
-	dayStatsArray: TrainingPlanDayStatsRecord[],
-	currentTrainingPlanDay: number,
-): TrainingPlanDaysMissed => {
+export const calculateDaysMissed = (dayStatsArray: TrainingPlanDayStatsRecord[], trainingPlanLength: number): TrainingPlanDaysMissed => {
 	// Subtract 1 for today... the current training plan day
 	// const noRecordMissedDays = currentTrainingPlanDay - dayStatsArray.length - 1;
 	if (dayStatsArray.length === 0) {
 		return {
-			missedDays: currentTrainingPlanDay,
-			recordsToCreate: currentTrainingPlanDay,
+			missedDays: trainingPlanLength,
+			recordsToCreate: trainingPlanLength,
 		};
 	}
 
 	const currentRecordedDayStats = dayStatsArray.length;
-	const missedDaysSinceLastRecordedDayStat = currentTrainingPlanDay - currentRecordedDayStats;
+	const missedDaysSinceLastRecordedDayStat = trainingPlanLength - currentRecordedDayStats;
 
 	const missedDaysFromDatabase = dayStatsArray.reduce((acc: number, cv: TrainingPlanDayStatsRecord): number => {
 		if (cv.dailyPoints === 0) {
@@ -246,3 +244,14 @@ export function createErrorLog(
 
 	return new Promise((resolve) => resolve());
 }
+
+export const getTrainingPlanLength = (programId: ProgramId) => {
+	switch (programId) {
+		case "ignite_7_reset": {
+			return 8;
+		}
+		default: {
+			return 31;
+		}
+	}
+};
